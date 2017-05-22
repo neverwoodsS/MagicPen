@@ -1,7 +1,6 @@
 package com.lab.zhangll.magicpen.lib.shapes.line
 
 import android.graphics.Paint
-import com.lab.zhangll.magicpen.lib.MagicShape
 import com.lab.zhangll.magicpen.lib.setting.MagicSetting
 
 /**

@@ -11,7 +11,7 @@ class MagicLineSetting : MagicSetting() {
 
     var paint: Paint? = null
 
-    override fun product(): MagicShape {
+    override fun product(): MagicLine {
         if (start != null && end != null) {
             return MagicLine(
                     start!!.x,

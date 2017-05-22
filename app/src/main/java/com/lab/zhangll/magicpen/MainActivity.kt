@@ -38,6 +38,9 @@ class MainActivity : AppCompatActivity() {
 
                         alignRight(bigOne)
                         alignBottom(bigOne)
+
+                        rightMargin = 30f
+                        bottomMargin = 120f
                     }
                 }
         )

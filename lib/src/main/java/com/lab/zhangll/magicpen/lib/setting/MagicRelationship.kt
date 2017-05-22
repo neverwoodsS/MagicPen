@@ -11,9 +11,12 @@ interface MagicRelationship {
 
     var width: Float?
     var height: Float?
-}
 
-private fun MagicRelationship.reEnd() = PointF(start!!.x + width!!, start!!.y + height!!)
+    var leftMargin: Float
+    var rightMargin: Float
+    var topMargin: Float
+    var bottomMargin: Float
+}
 
 private fun MagicRelationship.guardParameters(another: MagicSetting) {
     if (another.start == null || another.end == null) {
@@ -24,6 +27,8 @@ private fun MagicRelationship.guardParameters(another: MagicSetting) {
         throw Exception("宽高不能为空")
     }
 }
+
+fun MagicRelationship.reEnd() = PointF(start!!.x + width!!, start!!.y + height!!)
 
 fun MagicRelationship.belowOf(another: MagicSetting) {
     guardParameters(another)
@@ -88,3 +93,27 @@ fun MagicRelationship.alignRight(another: MagicSetting) {
             start?.y ?: another.start!!.y)
     end = reEnd()
 }
+
+//fun MagicRelationship.leftMargin(margin: Float) {
+//    start = PointF((start?.x ?: 0f) + margin,
+//            start?.y ?: 0f)
+//    end = reEnd()
+//}
+//
+//fun MagicRelationship.rightMargin(margin: Float) {
+//    start = PointF((start?.x ?: 0f) - margin,
+//            start?.y ?: 0f)
+//    end = reEnd()
+//}
+//
+//fun MagicRelationship.topMargin(margin: Float) {
+//    start = PointF(start?.x ?: 0f,
+//            (start?.y ?: 0f) + margin)
+//    end = reEnd()
+//}
+//
+//fun MagicRelationship.bottomMargin(margin: Float) {
+//    start = PointF(start?.x ?: 0f,
+//            (start?.y ?: 0f) - margin)
+//    end = reEnd()
+//}

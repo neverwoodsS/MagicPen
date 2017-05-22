@@ -38,6 +38,10 @@ class MainActivity : AppCompatActivity() {
 //                        bottomMargin = 120f
 
                         centerIn(bigOne)
+
+                        gesture {
+                            onClick = { println("clicked") }
+                        }
                     }
                 }
         )

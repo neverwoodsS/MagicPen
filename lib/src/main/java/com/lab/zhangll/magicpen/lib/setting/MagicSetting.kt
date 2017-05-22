@@ -17,6 +17,9 @@ abstract class MagicSetting : MagicRelationship {
     override var width: Float? = null
     override var height: Float? = null
 
+    // 手势处理
+    var gesture: MagicGesture? = null
+
     override var leftMargin = 0f
         set(value) {
             field = value

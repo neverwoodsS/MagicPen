@@ -17,7 +17,8 @@ class MagicLineSetting : MagicSetting() {
                     start!!.y,
                     end!!.x,
                     end!!.y,
-                    paint ?: Paint())
+                    paint ?: Paint(),
+                    gesture)
         } else {
             throw Exception("条件不充足")
         }

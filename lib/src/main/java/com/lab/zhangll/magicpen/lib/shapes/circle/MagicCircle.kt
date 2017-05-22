@@ -1,5 +1,6 @@
 package com.lab.zhangll.magicpen.lib.shapes.circle
 
+import com.lab.zhangll.magicpen.lib.MagicShape
 import com.lab.zhangll.magicpen.lib.centerX
 import com.lab.zhangll.magicpen.lib.centerY
 import com.lab.zhangll.magicpen.lib.width
@@ -13,6 +14,6 @@ class MagicCircle(
         override var right: Float,
         override var bottom: Float,
         override var paint: android.graphics.Paint
-) : com.lab.zhangll.magicpen.lib.MagicShape {
+) : MagicShape {
     override fun drawOn(canvas: android.graphics.Canvas?) = canvas?.drawCircle(centerX, centerY, width / 2, paint)
 }

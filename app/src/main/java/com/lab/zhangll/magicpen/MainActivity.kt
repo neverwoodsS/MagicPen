@@ -32,11 +32,12 @@ class MainActivity : AppCompatActivity() {
                     circle {
                         radius = 50f
 
-                        alignRight(bigOne)
-                        alignBottom(bigOne)
+//                        alignRight(bigOne)
+//                        alignBottom(bigOne)
+//                        rightMargin = 30f
+//                        bottomMargin = 120f
 
-                        rightMargin = 30f
-                        bottomMargin = 120f
+                        centerIn(bigOne)
                     }
                 }
         )

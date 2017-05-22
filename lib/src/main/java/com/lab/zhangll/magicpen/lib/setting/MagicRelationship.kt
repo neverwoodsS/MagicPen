@@ -62,6 +62,14 @@ fun MagicRelationship.leftOf(another: MagicSetting) {
     end = reEnd()
 }
 
+fun MagicRelationship.centerIn(another: MagicSetting) {
+    guardParameters(another)
+
+    start = PointF(another.start!!.x / 2 + another.end!!.x / 2 - width!! / 2,
+            another.start!!.y / 2 + another.end!!.y / 2 - height!! / 2)
+    end = reEnd()
+}
+
 fun MagicRelationship.alignTop(another: MagicSetting) {
     guardParameters(another)
 

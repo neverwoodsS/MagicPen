@@ -7,8 +7,6 @@ import com.lab.zhangll.magicpen.lib.shapes.MagicCircleSetting
 /**
  * Created by zhangll on 2017/5/20.
  */
-infix fun Float.xy(that: Float) = this to that
-
 fun Context.magicPen(set: MagicView.() -> Unit)
         :  MagicView {
     val magicView = MagicView(this)

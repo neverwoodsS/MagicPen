@@ -14,27 +14,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(
                 magicPen {
+                    val line = line {
+                        start = PointF(0f, 1000f)
+                        end = PointF(1000f, 1000f)
+                    }
+
                     val bigOne = circle {
-                        center = PointF(400f, 500f)
                         radius = 200f
+
+                        aboveOf(line)
+                        leftMargin = 500f
 
                         paint = Paint().apply { color = Color.RED }
                     }
 
                     circle {
                         radius = 50f
-
-                        /**
-                         * leftOf
-                         * rightOf
-                         * belowOf
-                         * aboveOf
-                         *
-                         * alignTop
-                         * alignBottom
-                         * alignLeft
-                         * alignRight
-                         */
 
                         alignRight(bigOne)
                         alignBottom(bigOne)

@@ -8,5 +8,5 @@ import android.graphics.Paint
  */
 interface MagicDraw {
     var paint: Paint
-    fun drawOn(canvas: Canvas?)
+    fun drawOn(canvas: Canvas?): Unit?
 }

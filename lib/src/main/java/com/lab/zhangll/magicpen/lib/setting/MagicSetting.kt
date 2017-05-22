@@ -18,7 +18,7 @@ abstract class MagicSetting : MagicRelationship {
     override var leftMargin = 0f
         set(value) {
             field = value
-            start = PointF((start?.x ?: 0f) - value,
+            start = PointF((start?.x ?: 0f) + value,
                     start?.y ?: 0f)
             end = reEnd()
         }

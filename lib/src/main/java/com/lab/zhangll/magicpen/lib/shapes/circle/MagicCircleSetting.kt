@@ -1,4 +1,4 @@
-package com.lab.zhangll.magicpen.lib.shapes
+package com.lab.zhangll.magicpen.lib.shapes.circle
 
 import android.graphics.Paint
 import android.graphics.PointF

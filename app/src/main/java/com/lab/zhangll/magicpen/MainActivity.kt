@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
                         aboveOf(line)
                         leftMargin = 500f
+                        bottomMargin = 10f
 
                         paint = Paint().apply { color = Color.RED }
                     }

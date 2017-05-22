@@ -20,7 +20,7 @@ class MagicCircleSetting : MagicSetting() {
 
     var paint: Paint? = null
 
-    fun product(): MagicCircle {
+    override fun product(): MagicCircle {
         if (center != null && radius != null) {
             start = PointF(center!!.x - radius!!, center!!.y - radius!!)
             end = PointF(center!!.x + radius!!, center!!.y + radius!!)

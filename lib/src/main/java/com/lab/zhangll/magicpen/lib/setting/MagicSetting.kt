@@ -1,11 +1,14 @@
 package com.lab.zhangll.magicpen.lib.setting
 
 import android.graphics.PointF
+import com.lab.zhangll.magicpen.lib.MagicShape
 
 /**
  * Created by zhangll on 2017/5/20.
  */
-open class MagicSetting : MagicRelationship {
+abstract class MagicSetting : MagicRelationship {
+    abstract fun product(): MagicShape
+
     override var start: PointF? = null
     override var end: PointF? = null
 

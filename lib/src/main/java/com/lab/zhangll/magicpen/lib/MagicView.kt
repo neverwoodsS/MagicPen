@@ -3,6 +3,7 @@ package com.lab.zhangll.magicpen.lib
 import android.content.Context
 import android.graphics.Canvas
 import android.view.View
+import com.lab.zhangll.magicpen.lib.shapes.MagicShape
 
 /**
  * Created by zhangll on 2017/5/20.

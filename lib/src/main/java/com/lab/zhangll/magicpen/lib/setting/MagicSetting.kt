@@ -1,7 +1,7 @@
 package com.lab.zhangll.magicpen.lib.setting
 
 import android.graphics.PointF
-import com.lab.zhangll.magicpen.lib.MagicShape
+import com.lab.zhangll.magicpen.lib.shapes.MagicShape
 
 /**
  * Created by zhangll on 2017/5/20.

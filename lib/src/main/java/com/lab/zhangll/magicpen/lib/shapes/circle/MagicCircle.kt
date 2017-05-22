@@ -1,9 +1,9 @@
 package com.lab.zhangll.magicpen.lib.shapes.circle
 
-import com.lab.zhangll.magicpen.lib.MagicShape
-import com.lab.zhangll.magicpen.lib.centerX
-import com.lab.zhangll.magicpen.lib.centerY
-import com.lab.zhangll.magicpen.lib.width
+import com.lab.zhangll.magicpen.lib.shapes.MagicShape
+import com.lab.zhangll.magicpen.lib.shapes.centerX
+import com.lab.zhangll.magicpen.lib.shapes.centerY
+import com.lab.zhangll.magicpen.lib.shapes.width
 
 /**
  * Created by zhangll on 2017/5/20.

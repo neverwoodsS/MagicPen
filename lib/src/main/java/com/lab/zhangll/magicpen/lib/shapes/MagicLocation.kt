@@ -1,4 +1,4 @@
-package com.lab.zhangll.magicpen.lib
+package com.lab.zhangll.magicpen.lib.shapes
 
 /**
  * Created by zhangll on 2017/5/20.

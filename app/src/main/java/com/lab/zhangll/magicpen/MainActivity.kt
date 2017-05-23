@@ -5,6 +5,7 @@ import android.graphics.Paint
 import android.graphics.PointF
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.lab.zhangll.magicpen.lib.*
 import com.lab.zhangll.magicpen.lib.setting.*
 
@@ -40,7 +41,19 @@ class MainActivity : AppCompatActivity() {
                         centerIn(bigOne)
 
                         gesture {
-                            onClick = { println("clicked") }
+                            onClick = {
+                                Toast.makeText(this@MainActivity, "clicked", Toast.LENGTH_SHORT).show()
+                            }
+
+                            onDragBy = { x, y ->
+                                moveBy(x, y)
+                                invalidate()
+                            }
+
+                            onRelease = {
+                                moveToOrigin()
+                                invalidate()
+                            }
                         }
                     }
                 }

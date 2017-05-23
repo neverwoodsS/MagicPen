@@ -5,5 +5,16 @@ package com.lab.zhangll.magicpen.lib.setting
  */
 class MagicGesture {
     var onClick: (() -> Unit)? = null
-    var onDragTo: ((x: Float, y: Float) -> Unit)? = null
+    var onDragBy: ((x: Float, y: Float) -> Unit)? = null
+    var onRelease: (() -> Unit)? = null
+
+    var responder: MagiGestureResponder? = null
+
+    fun moveBy(x: Float, y: Float) {
+        responder?.moveBy(x, y)
+    }
+
+    fun moveToOrigin() {
+        responder?.moveToOrigin()
+    }
 }

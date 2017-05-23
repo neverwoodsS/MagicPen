@@ -15,7 +15,7 @@ class MagicLine(
         override var bottom: Float,
         override var paint: Paint,
         override var gesture: MagicGesture?
-) : MagicShape {
+) : MagicShape() {
 
     val k by lazy { (bottom - top) / (right - left) }
     val b by lazy { top - k * left }

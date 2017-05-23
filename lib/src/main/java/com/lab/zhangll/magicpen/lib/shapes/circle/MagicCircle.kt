@@ -13,7 +13,12 @@ class MagicCircle(
         override var bottom: Float,
         override var paint: android.graphics.Paint,
         override var gesture: MagicGesture?
-) : MagicShape {
+) : MagicShape() {
+
+    init {
+        gesture?.responder = this
+    }
+
     override fun containPoint(x: Float, y: Float): Boolean {
         if (containInRect(x, y)) {
             val dx = x - centerX

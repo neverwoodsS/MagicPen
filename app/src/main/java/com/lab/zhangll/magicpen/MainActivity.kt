@@ -32,17 +32,12 @@ class MainActivity : AppCompatActivity() {
 
                     circle {
                         radius = 50f
-
-//                        alignRight(bigOne)
-//                        alignBottom(bigOne)
-//                        rightMargin = 30f
-//                        bottomMargin = 120f
-
                         centerIn(bigOne)
 
                         gesture {
                             onClick = {
-                                Toast.makeText(this@MainActivity, "clicked", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@MainActivity, "clicked", Toast.LENGTH_SHORT)
+                                        .show()
                             }
 
                             onDragBy = { x, y ->

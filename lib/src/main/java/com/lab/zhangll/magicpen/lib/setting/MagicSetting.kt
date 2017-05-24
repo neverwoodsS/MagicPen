@@ -19,6 +19,7 @@ abstract class MagicSetting : MagicRelationship {
 
     // 手势处理
     var gesture: MagicGesture? = null
+    var gestureSet: (MagicGesture.() -> Unit)? = null
 
     override var leftMargin = 0f
         set(value) {

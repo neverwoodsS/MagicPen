@@ -33,7 +33,9 @@ class MagicView(context: Context) : View(context) {
             MotionEvent.ACTION_MOVE -> {
                 val nowPoint = PointF(event.x, event.y)
                 if (nowPoint.distanceTo(downPoint) > 10) {
-                    touchDownShapes.forEach { it.gesture?.onDragBy?.invoke(nowPoint.x - downPoint.x, nowPoint.y - downPoint.y) }
+                    touchDownShapes.forEach {
+                        it.gesture?.onDragBy?.invoke(nowPoint.x - downPoint.x, nowPoint.y - downPoint.y)
+                    }
                 }
             }
 

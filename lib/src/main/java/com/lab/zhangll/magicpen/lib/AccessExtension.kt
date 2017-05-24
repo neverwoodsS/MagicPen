@@ -1,8 +1,10 @@
 package com.lab.zhangll.magicpen.lib
 
 import android.content.Context
+import com.lab.zhangll.magicpen.lib.setting.MagiGestureResponder
 import com.lab.zhangll.magicpen.lib.setting.MagicGesture
 import com.lab.zhangll.magicpen.lib.setting.MagicSetting
+import com.lab.zhangll.magicpen.lib.shapes.MagicShape
 import com.lab.zhangll.magicpen.lib.shapes.circle.MagicCircleSetting
 import com.lab.zhangll.magicpen.lib.shapes.line.MagicLineSetting
 
@@ -17,22 +19,31 @@ fun Context.magicPen(set: MagicView.() -> Unit)
 }
 
 fun MagicSetting.gesture(set: MagicGesture.() -> Unit) {
-    val gesture = MagicGesture()
-    gesture.set()
+    this.gestureSet = set
+}
 
-    this.gesture = gesture
+fun MagicSetting.generate(): MagicShape {
+    val shape = product()
+
+    if (gestureSet != null) {
+        gesture = MagicGesture(shape)
+        gestureSet!!.invoke(gesture!!)
+    }
+
+    shape.gesture = gesture
+    return shape
 }
 
 fun MagicView.circle(set: MagicCircleSetting.() -> Unit): MagicSetting {
     val setting = MagicCircleSetting().apply { set() }
-    shapes.add(setting.product())
+    shapes.add(setting.generate())
 
     return setting
 }
 
 fun MagicView.line(set: MagicLineSetting.() -> Unit): MagicSetting {
     val setting = MagicLineSetting().apply { set() }
-    shapes.add(setting.product())
+    shapes.add(setting.generate())
 
     return setting
 }

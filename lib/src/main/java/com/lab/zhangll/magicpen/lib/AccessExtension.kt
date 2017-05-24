@@ -1,7 +1,6 @@
 package com.lab.zhangll.magicpen.lib
 
 import android.content.Context
-import com.lab.zhangll.magicpen.lib.setting.MagiGestureResponder
 import com.lab.zhangll.magicpen.lib.setting.MagicGesture
 import com.lab.zhangll.magicpen.lib.setting.MagicSetting
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape

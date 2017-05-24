@@ -1,13 +1,13 @@
 package com.lab.zhangll.magicpen.lib.shapes
 
 import android.graphics.PointF
-import com.lab.zhangll.magicpen.lib.setting.MagiGestureResponder
+import com.lab.zhangll.magicpen.lib.setting.MagicMotion
 import com.lab.zhangll.magicpen.lib.setting.MagicGesture
 
 /**
  * Created by zhangll on 2017/5/20.
  */
-abstract class MagicShape : MagicLocation, MagicDraw, MagiGestureResponder {
+abstract class MagicShape : MagicLocation, MagicDraw, MagicMotion {
     open var gesture: MagicGesture? = null
 
     val start: PointF by lazy { PointF(left, top) }

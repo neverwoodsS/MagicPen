@@ -6,20 +6,21 @@ import com.lab.zhangll.magicpen.lib.setting.MagicSetting
 /**
  * Created by zhangll on 2017/5/22.
  */
-class MagicLineSetting : MagicSetting() {
+class MagicLineSetting(shape: MagicLine) : MagicSetting<MagicLine>(shape) {
 
     var paint: Paint? = null
 
-    override fun product(): MagicLine {
+    override fun product(shape: MagicLine): MagicLine {
         if (start != null && end != null) {
-            return MagicLine(
-                    start!!.x,
-                    start!!.y,
-                    end!!.x,
-                    end!!.y,
-                    paint ?: Paint())
+            shape.left = start!!.x
+            shape.top = start!!.y
+            shape.right = end!!.x
+            shape.bottom = end!!.y
+            shape.paint = paint ?: Paint()
         } else {
             throw Exception("条件不充足")
         }
+
+        return shape
     }
 }

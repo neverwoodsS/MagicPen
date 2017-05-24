@@ -7,13 +7,13 @@ import com.lab.zhangll.magicpen.lib.shapes.*
 /**
  * Created by zhangll on 2017/5/20.
  */
-class MagicCircle(
-        override var left: Float,
-        override var top: Float,
-        override var right: Float,
-        override var bottom: Float,
-        override var paint: Paint
-) : MagicShape() {
+class MagicCircle : MagicShape() {
+    override var left: Float = 0f
+    override var top: Float = 0f
+    override var right: Float = 0f
+    override var bottom: Float = 0f
+    override var paint: Paint = Paint()
+
     override fun containPoint(x: Float, y: Float): Boolean {
         if (containInRect(x, y)) {
             val dx = x - centerX

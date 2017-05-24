@@ -4,7 +4,9 @@ import android.content.Context
 import com.lab.zhangll.magicpen.lib.setting.MagicGesture
 import com.lab.zhangll.magicpen.lib.setting.MagicSetting
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape
+import com.lab.zhangll.magicpen.lib.shapes.circle.MagicCircle
 import com.lab.zhangll.magicpen.lib.shapes.circle.MagicCircleSetting
+import com.lab.zhangll.magicpen.lib.shapes.line.MagicLine
 import com.lab.zhangll.magicpen.lib.shapes.line.MagicLineSetting
 
 /**
@@ -17,32 +19,36 @@ fun Context.magicPen(set: MagicView.() -> Unit)
     return magicView
 }
 
-fun MagicSetting.gesture(set: MagicGesture.() -> Unit) {
-    this.gestureSet = set
+fun <T : MagicShape> MagicSetting<T>.gesture(set: MagicGesture.() -> Unit) {
+    this.gesture = MagicGesture().apply { set.invoke(this) }
 }
 
-fun MagicSetting.generate(): MagicShape {
-    val shape = product()
+fun <T : MagicShape> MagicSetting<T>.generate(shape: T): T {
+    val productShape = product(shape)
 
     if (gestureSet != null) {
-        gesture = MagicGesture(shape)
+        gesture = MagicGesture()
         gestureSet!!.invoke(gesture!!)
     }
 
-    shape.gesture = gesture
-    return shape
+    productShape.gesture = gesture
+    return productShape
 }
 
-fun MagicView.circle(set: MagicCircleSetting.() -> Unit): MagicSetting {
-    val setting = MagicCircleSetting().apply { set() }
-    shapes.add(setting.generate())
+fun MagicView.circle(set: MagicCircleSetting.() -> Unit): MagicSetting<MagicCircle> {
+    val shape = MagicCircle()
+
+    val setting = MagicCircleSetting(shape).apply { set() }
+    shapes.add(setting.generate(shape))
 
     return setting
 }
 
-fun MagicView.line(set: MagicLineSetting.() -> Unit): MagicSetting {
-    val setting = MagicLineSetting().apply { set() }
-    shapes.add(setting.generate())
+fun MagicView.line(set: MagicLineSetting.() -> Unit): MagicSetting<MagicLine> {
+    val shape = MagicLine()
+
+    val setting = MagicLineSetting(shape).apply { set() }
+    shapes.add(setting.generate(shape))
 
     return setting
 }

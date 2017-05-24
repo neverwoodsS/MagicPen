@@ -7,7 +7,7 @@ import com.lab.zhangll.magicpen.lib.setting.MagicSetting
 /**
  * Created by zhangll on 2017/5/22.
  */
-class MagicCircleSetting : MagicSetting() {
+class MagicCircleSetting(shape: MagicCircle) : MagicSetting<MagicCircle>(shape) {
     var center: PointF? = null
     var radius: Float? = null
         set(value) {
@@ -20,21 +20,22 @@ class MagicCircleSetting : MagicSetting() {
 
     var paint: Paint? = null
 
-    override fun product(): MagicCircle {
+    override fun product(shape: MagicCircle): MagicCircle {
         if (center != null && radius != null) {
             start = PointF(center!!.x - radius!!, center!!.y - radius!!)
             end = PointF(center!!.x + radius!!, center!!.y + radius!!)
         }
 
         if (start != null && end != null) {
-            return MagicCircle(
-                    start!!.x,
-                    start!!.y,
-                    end!!.x,
-                    end!!.y,
-                    paint ?: Paint())
+            shape.left = start!!.x
+            shape.top = start!!.y
+            shape.right = end!!.x
+            shape.bottom = end!!.y
+            shape.paint = paint ?: Paint()
         } else {
             throw Exception("条件不充足")
         }
+
+        return shape
     }
 }

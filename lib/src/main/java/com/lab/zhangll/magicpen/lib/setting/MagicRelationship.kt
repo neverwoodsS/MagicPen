@@ -1,6 +1,7 @@
 package com.lab.zhangll.magicpen.lib.setting
 
 import android.graphics.PointF
+import com.lab.zhangll.magicpen.lib.shapes.MagicShape
 
 /**
  * Created by zhangll on 2017/5/22.
@@ -17,7 +18,7 @@ interface MagicRelationship {
     var topMargin: Float
     var bottomMargin: Float
 
-    private fun guardParameters(another: MagicSetting) {
+    private fun <T : MagicShape> guardParameters(another: MagicSetting<T>) {
         if (another.start == null || another.end == null) {
             throw Exception("不允许参照对象为空")
         }
@@ -29,7 +30,7 @@ interface MagicRelationship {
 
     fun reEnd() = PointF(start!!.x + width!!, start!!.y + height!!)
 
-    fun belowOf(another: MagicSetting) {
+    fun <T : MagicShape> belowOf(another: MagicSetting<T>) {
         guardParameters(another)
 
         start = PointF(start?.x ?: another.start!!.x,
@@ -37,7 +38,7 @@ interface MagicRelationship {
         end = reEnd()
     }
 
-    fun aboveOf(another: MagicSetting) {
+    fun <T : MagicShape> aboveOf(another: MagicSetting<T>) {
         guardParameters(another)
 
         start = PointF(start?.x ?: another.start!!.x,
@@ -45,7 +46,7 @@ interface MagicRelationship {
         end = reEnd()
     }
 
-    fun rightOf(another: MagicSetting) {
+    fun <T : MagicShape> rightOf(another: MagicSetting<T>) {
         guardParameters(another)
 
         start = PointF(another.end!!.x,
@@ -53,7 +54,7 @@ interface MagicRelationship {
         end = reEnd()
     }
 
-    fun leftOf(another: MagicSetting) {
+    fun <T : MagicShape> leftOf(another: MagicSetting<T>) {
         guardParameters(another)
 
         start = PointF(another.start!!.x - width!!,
@@ -61,7 +62,7 @@ interface MagicRelationship {
         end = reEnd()
     }
 
-    fun centerIn(another: MagicSetting) {
+    fun <T : MagicShape> centerIn(another: MagicSetting<T>) {
         guardParameters(another)
 
         start = PointF(another.start!!.x / 2 + another.end!!.x / 2 - width!! / 2,
@@ -69,7 +70,7 @@ interface MagicRelationship {
         end = reEnd()
     }
 
-    fun alignTop(another: MagicSetting) {
+    fun <T : MagicShape> alignTop(another: MagicSetting<T>) {
         guardParameters(another)
 
         start = PointF(start?.x ?: another.start!!.x,
@@ -77,7 +78,7 @@ interface MagicRelationship {
         end = reEnd()
     }
 
-    fun alignBottom(another: MagicSetting) {
+    fun <T : MagicShape> alignBottom(another: MagicSetting<T>) {
         guardParameters(another)
 
         start = PointF(start?.x ?: another.start!!.x,
@@ -85,7 +86,7 @@ interface MagicRelationship {
         end = reEnd()
     }
 
-    fun alignLeft(another: MagicSetting) {
+    fun <T : MagicShape> alignLeft(another: MagicSetting<T>) {
         guardParameters(another)
 
         start = PointF(another.start!!.x,
@@ -93,7 +94,7 @@ interface MagicRelationship {
         end = reEnd()
     }
 
-    fun alignRight(another: MagicSetting) {
+    fun <T : MagicShape> alignRight(another: MagicSetting<T>) {
         guardParameters(another)
 
         start = PointF(another.end!!.x - width!!,

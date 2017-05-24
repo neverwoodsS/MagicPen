@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.lab.zhangll.magicpen.lib.*
-import com.lab.zhangll.magicpen.lib.setting.*
 
 class MainActivity : AppCompatActivity() {
 

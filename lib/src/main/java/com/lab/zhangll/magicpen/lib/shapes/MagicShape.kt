@@ -65,9 +65,9 @@ abstract class MagicShape : MagicLocation, MagicDraw, MagicMotion {
     override fun smoothMoveToOrigin() {
         smoothMoveTo(start.x, start.y)
     }
-}
 
-fun MagicShape.containInRect(x: Float, y: Float): Boolean {
-    return x in left..right
-            && y in top..bottom
+    fun containInRect(x: Float, y: Float): Boolean {
+        return x in left..right
+                && y in top..bottom
+    }
 }

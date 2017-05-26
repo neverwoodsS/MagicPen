@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     text {
-                        text = "我是一只小小鸟我是一只小小鸟"
+                        content = "我是一只小小鸟我是一只小小鸟"
                         centerIn(bigOne)
                     }
 

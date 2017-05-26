@@ -11,7 +11,7 @@ class MagicTextSetting(shape: MagicText) : MagicSetting<MagicText>(shape) {
 
     var center: PointF? = null
 
-    var text: String? = null
+    var content: String? = null
         set(value) {
             field = value
             recountWidthAndHeight()
@@ -41,7 +41,7 @@ class MagicTextSetting(shape: MagicText) : MagicSetting<MagicText>(shape) {
             shape.top = start!!.y
             shape.right = end!!.x
             shape.bottom = end!!.y
-            shape.text = text ?: ""
+            shape.text = content ?: ""
             shape.paint = paint ?: Paint()
         } else {
             throw Exception("条件不充足")
@@ -55,7 +55,7 @@ class MagicTextSetting(shape: MagicText) : MagicSetting<MagicText>(shape) {
             paint = Paint()
         }
 
-        width = paint!!.measureText(text)
+        width = paint!!.measureText(content)
 
         val fontMetrics = paint!!.fontMetrics
 //        val yOffSet = fontMetrics.descent - (fontMetrics.descent - fontMetrics.ascent) / 2

@@ -29,6 +29,11 @@ class MainActivity : AppCompatActivity() {
                         paint = Paint().apply { color = Color.RED } // 红色
                     }
 
+                    text {
+                        text = "我是一只小小鸟我是一只小小鸟"
+                        centerIn(bigOne)
+                    }
+
                     circle {
                         radius = 50f // 半径
                         centerIn(bigOne) // 在大圆中间

@@ -8,6 +8,8 @@ import com.lab.zhangll.magicpen.lib.shapes.circle.MagicCircle
 import com.lab.zhangll.magicpen.lib.shapes.circle.MagicCircleSetting
 import com.lab.zhangll.magicpen.lib.shapes.line.MagicLine
 import com.lab.zhangll.magicpen.lib.shapes.line.MagicLineSetting
+import com.lab.zhangll.magicpen.lib.shapes.text.MagicText
+import com.lab.zhangll.magicpen.lib.shapes.text.MagicTextSetting
 
 /**
  * Created by zhangll on 2017/5/20.
@@ -39,6 +41,15 @@ fun MagicView.circle(set: MagicCircleSetting.() -> Unit): MagicSetting<MagicCirc
     val shape = MagicCircle()
 
     val setting = MagicCircleSetting(shape).apply { set() }
+    addShape(setting.generate(shape))
+
+    return setting
+}
+
+fun MagicView.text(set: MagicTextSetting.() -> Unit): MagicTextSetting {
+    val shape = MagicText()
+
+    val setting = MagicTextSetting(shape).apply { set() }
     addShape(setting.generate(shape))
 
     return setting

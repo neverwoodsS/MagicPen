@@ -39,15 +39,9 @@ class MainActivity : AppCompatActivity() {
                                         .show()
                             }
 
-                            onDragBy = { x, y ->
-                                moveBy(x, y)
-                                invalidate()
-                            }
+                            onDragBy = { x, y -> moveBy(x, y) }
 
-                            onRelease = {
-                                moveToOrigin()
-                                invalidate()
-                            }
+                            onRelease = { moveToOrigin() }
                         }
                     }
                 }

@@ -12,7 +12,7 @@ import com.lab.zhangll.magicpen.lib.shapes.MagicShape
  * Created by zhangll on 2017/5/20.
  */
 class MagicView(context: Context) : View(context) {
-    val shapes: MutableList<MagicShape> = mutableListOf()
+    private val shapes: MutableList<MagicShape> = mutableListOf()
 
     var touchDownShapes: List<MagicShape> = mutableListOf()
 
@@ -52,9 +52,9 @@ class MagicView(context: Context) : View(context) {
         return true
     }
 
-    override fun invalidate() {
-        super.invalidate()
-        println("received invalidate")
+    fun addShape(shape: MagicShape) {
+        shapes.add(shape)
+        shape.parent = this
     }
 }
 

@@ -39,7 +39,7 @@ fun MagicView.circle(set: MagicCircleSetting.() -> Unit): MagicSetting<MagicCirc
     val shape = MagicCircle()
 
     val setting = MagicCircleSetting(shape).apply { set() }
-    shapes.add(setting.generate(shape))
+    addShape(setting.generate(shape))
 
     return setting
 }
@@ -48,7 +48,7 @@ fun MagicView.line(set: MagicLineSetting.() -> Unit): MagicSetting<MagicLine> {
     val shape = MagicLine()
 
     val setting = MagicLineSetting(shape).apply { set() }
-    shapes.add(setting.generate(shape))
+    addShape(setting.generate(shape))
 
     return setting
 }

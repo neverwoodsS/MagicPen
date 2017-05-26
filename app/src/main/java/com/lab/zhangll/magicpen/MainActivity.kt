@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                         gesture {
                             onClick = { println("clicked") }
                             onDragBy = { x, y -> moveBy(x, y) }
-                            onRelease = { moveToOrigin() }
+                            onRelease = { smoothMoveToOrigin() }
                         }
                     }
                 }

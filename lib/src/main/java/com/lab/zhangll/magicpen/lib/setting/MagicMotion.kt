@@ -6,4 +6,7 @@ package com.lab.zhangll.magicpen.lib.setting
 interface MagicMotion {
     fun moveBy(x: Float, y: Float)
     fun moveToOrigin()
+
+    fun smoothMoveTo(targetX: Float, targetY: Float)
+    fun smoothMoveToOrigin()
 }

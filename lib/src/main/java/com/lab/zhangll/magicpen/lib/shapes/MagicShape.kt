@@ -1,7 +1,9 @@
 package com.lab.zhangll.magicpen.lib.shapes
 
+import android.animation.ValueAnimator
 import android.graphics.PointF
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import com.lab.zhangll.magicpen.lib.setting.MagicMotion
 import com.lab.zhangll.magicpen.lib.setting.MagicGesture
 
@@ -34,6 +36,34 @@ abstract class MagicShape : MagicLocation, MagicDraw, MagicMotion {
         bottom = end.y
 
         parent.invalidate()
+    }
+
+    override fun smoothMoveTo(targetX: Float, targetY: Float) {
+        val totalX = targetX - left
+        val totalY = targetY - top
+
+        ValueAnimator.ofFloat(totalX, 0f).apply {
+            this.duration = 300
+            this.interpolator = AccelerateDecelerateInterpolator()
+
+            addUpdateListener {
+                val dx = it.animatedValue as Float
+                val dy = dx * totalY / totalX
+                val width = right - left
+                val height = bottom - top
+
+                left = targetX -  dx
+                right = targetX + width - dx
+                top = targetY - dy
+                bottom = targetY + height - dy
+
+                parent.invalidate()
+            }
+        }.start()
+    }
+
+    override fun smoothMoveToOrigin() {
+        smoothMoveTo(start.x, start.y)
     }
 }
 

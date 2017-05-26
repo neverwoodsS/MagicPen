@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
                         gesture {
                             onClick = { Toast.makeText(this@MainActivity, "clicked", Toast.LENGTH_SHORT).show() } // 点击时弹框
-                            onDragBy = { x, y -> moveBy(0f, y) } // 跟着拖动的手指动
+                            onDragBy = { x, y -> moveBy(x, y) } // 跟着拖动的手指动
                             onRelease = { smoothMoveToOrigin() } // 放手后滑动到原点
                         }
                     }

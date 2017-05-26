@@ -42,24 +42,41 @@ abstract class MagicShape : MagicLocation, MagicDraw, MagicMotion {
         val totalX = targetX - left
         val totalY = targetY - top
 
-        ValueAnimator.ofFloat(totalX, 0f).apply {
-            this.duration = 300
-            this.interpolator = AccelerateDecelerateInterpolator()
+        if (totalX == 0f) {
+            ValueAnimator.ofFloat(totalY, 0f).apply {
+                this.duration = 300
+                this.interpolator = AccelerateDecelerateInterpolator()
 
-            addUpdateListener {
-                val dx = it.animatedValue as Float
-                val dy = dx * totalY / totalX
-                val width = right - left
-                val height = bottom - top
+                addUpdateListener {
+                    val dy = it.animatedValue as Float
+                    val height = bottom - top
 
-                left = targetX -  dx
-                right = targetX + width - dx
-                top = targetY - dy
-                bottom = targetY + height - dy
+                    top = targetY - dy
+                    bottom = targetY + height - dy
 
-                parent.invalidate()
-            }
-        }.start()
+                    parent.invalidate()
+                }
+            }.start()
+        } else {
+            ValueAnimator.ofFloat(totalX, 0f).apply {
+                this.duration = 300
+                this.interpolator = AccelerateDecelerateInterpolator()
+
+                addUpdateListener {
+                    val dx = it.animatedValue as Float
+                    val dy = dx * totalY / totalX
+                    val width = right - left
+                    val height = bottom - top
+
+                    left = targetX -  dx
+                    right = targetX + width - dx
+                    top = targetY - dy
+                    bottom = targetY + height - dy
+
+                    parent.invalidate()
+                }
+            }.start()
+        }
     }
 
     override fun smoothMoveToOrigin() {

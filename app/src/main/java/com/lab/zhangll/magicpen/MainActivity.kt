@@ -30,7 +30,8 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     text {
-                        content = "我是一只小小鸟我是一只小小鸟"
+                        content = "我是一只小小鸟"
+                        paint = Paint().apply { textSize = 40f }
                         centerIn(bigOne)
                     }
 

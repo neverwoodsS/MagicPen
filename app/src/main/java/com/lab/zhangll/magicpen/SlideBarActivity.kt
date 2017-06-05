@@ -26,6 +26,7 @@ class SlideBarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(
                 magicPen {
+                    // 线条
                     rect {
                         left = firstCenterX
                         right = secondCenterX
@@ -35,6 +36,7 @@ class SlideBarActivity : AppCompatActivity() {
                         paint = grayPaint
                     }
 
+                    // 圆点
                     circle {
                         radius = 21f
                         center = PointF(firstCenterX, centerY)
@@ -42,10 +44,12 @@ class SlideBarActivity : AppCompatActivity() {
                         paint = grayPaint
 
                         gesture {
+                            // 点击时将按钮移动过来
                             onClick = { button?.smoothMoveCenterTo(firstCenterX, centerY) }
                         }
                     }
 
+                    // 圆点
                     circle {
                         radius = 21f
                         center = PointF(secondCenterX, centerY)
@@ -53,22 +57,26 @@ class SlideBarActivity : AppCompatActivity() {
                         paint = grayPaint
 
                         gesture {
+                            // 点击时将按钮移动过来
                             onClick = { button?.smoothMoveCenterTo(secondCenterX, centerY) }
                         }
                     }
 
+                    // 中间圆按钮
                     button = circle {
                         radius = 60f
                         center = PointF(centerX, centerY)
 
                         gesture {
                             onDragBy = { x, _ ->
+                                // 在指定范围内跟着手指拖动（仅 X 轴）
                                 if ((x + downPoint.x) in firstCenterX..secondCenterX) {
                                     moveBy(x, 0f)
                                 }
                             }
 
                             onRelease = { x, _ ->
+                                // 在不同位置放手，移动至不同的位置
                                 val targetX = when(x) {
                                     in 0f..(centerX - 200) -> firstCenterX
                                     in (centerX + 200)..Float.MAX_VALUE -> secondCenterX

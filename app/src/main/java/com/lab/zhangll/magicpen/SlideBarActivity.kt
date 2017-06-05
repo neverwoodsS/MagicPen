@@ -13,8 +13,8 @@ import com.lab.zhangll.magicpen.lib.shapes.circle.MagicCircleSetting
 
 class SlideBarActivity : AppCompatActivity() {
 
-    val firstCenterX = 200f
-    val secondCenterX = 1000f
+    val firstCenterX = 100f
+    val secondCenterX = 900f
 
     val centerX = (firstCenterX + secondCenterX) / 2
     val centerY = 200f

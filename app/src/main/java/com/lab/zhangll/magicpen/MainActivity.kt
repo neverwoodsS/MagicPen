@@ -14,15 +14,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(
                 magicPen {
-                    val line = line {
+                    val aLine = line {
                         start = PointF(0f, 1000f) // 线条起点
                         end = PointF(1000f, 1000f) // 线条终点
                     }
 
-                    val bigOne = circle {
+                    val bigCircle = circle {
                         radius = 200f // 圆半径
 
-                        aboveOf(line) // 在线条上面
+                        aboveOf(aLine) // 在线条上面
                         leftMargin = 500f // 左边距
                         bottomMargin = 10f // 下边距
 
@@ -32,12 +32,12 @@ class MainActivity : AppCompatActivity() {
                     text {
                         content = "我是一只小小鸟"
                         paint = Paint().apply { textSize = 40f }
-                        centerIn(bigOne)
+                        centerIn(bigCircle)
                     }
 
                     circle {
                         radius = 50f // 半径
-                        centerIn(bigOne) // 在大圆中间
+                        centerIn(bigCircle) // 在大圆中间
 
                         gesture {
                             onClick = { Toast.makeText(this@MainActivity, "clicked", Toast.LENGTH_SHORT).show() } // 点击时弹框

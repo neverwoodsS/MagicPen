@@ -8,5 +8,6 @@ interface MagicMotion {
     fun moveToOrigin()
 
     fun smoothMoveTo(targetX: Float, targetY: Float)
+    fun smoothMoveCenterTo(targetX: Float, targetY: Float)
     fun smoothMoveToOrigin()
 }

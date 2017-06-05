@@ -4,11 +4,9 @@ import android.content.Context
 import com.lab.zhangll.magicpen.lib.setting.MagicGesture
 import com.lab.zhangll.magicpen.lib.setting.MagicSetting
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape
-import com.lab.zhangll.magicpen.lib.shapes.circle.MagicCircle
 import com.lab.zhangll.magicpen.lib.shapes.circle.MagicCircleSetting
-import com.lab.zhangll.magicpen.lib.shapes.line.MagicLine
 import com.lab.zhangll.magicpen.lib.shapes.line.MagicLineSetting
-import com.lab.zhangll.magicpen.lib.shapes.text.MagicText
+import com.lab.zhangll.magicpen.lib.shapes.rect.MagicRectSetting
 import com.lab.zhangll.magicpen.lib.shapes.text.MagicTextSetting
 
 /**
@@ -19,6 +17,14 @@ fun Context.magicPen(set: MagicView.() -> Unit)
     val magicView = MagicView(this)
     magicView.set()
     return magicView
+}
+
+inline fun <reified T : MagicShape, reified R : MagicSetting<T>> MagicView.settingOf(set: R.() -> Unit): R {
+    val s = T::class.java.getConstructor().newInstance()
+    val setting = R::class.java.getConstructor(T::class.java).newInstance(s)
+    setting.set()
+    addShape(setting.generate(s))
+    return setting
 }
 
 fun <T : MagicShape> MagicSetting<T>.gesture(set: MagicGesture.() -> Unit) {
@@ -37,29 +43,10 @@ fun <T : MagicShape> MagicSetting<T>.generate(shape: T): T {
     return productShape
 }
 
-fun MagicView.circle(set: MagicCircleSetting.() -> Unit): MagicSetting<MagicCircle> {
-    val shape = MagicCircle()
+fun MagicView.circle(set: MagicCircleSetting.() -> Unit) = settingOf(set)
 
-    val setting = MagicCircleSetting(shape).apply { set() }
-    addShape(setting.generate(shape))
+fun MagicView.text(set: MagicTextSetting.() -> Unit) = settingOf(set)
 
-    return setting
-}
+fun MagicView.line(set: MagicLineSetting.() -> Unit) = settingOf(set)
 
-fun MagicView.text(set: MagicTextSetting.() -> Unit): MagicTextSetting {
-    val shape = MagicText()
-
-    val setting = MagicTextSetting(shape).apply { set() }
-    addShape(setting.generate(shape))
-
-    return setting
-}
-
-fun MagicView.line(set: MagicLineSetting.() -> Unit): MagicSetting<MagicLine> {
-    val shape = MagicLine()
-
-    val setting = MagicLineSetting(shape).apply { set() }
-    addShape(setting.generate(shape))
-
-    return setting
-}
+fun MagicView.rect(set: MagicRectSetting.() -> Unit) = settingOf(set)

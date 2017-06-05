@@ -44,7 +44,7 @@ class MagicView(context: Context) : View(context) {
                 if (nowPoint.distanceTo(downPoint) < 10) {
                     touchDownShapes.forEach { it.gesture?.onClick?.invoke() }
                 } else {
-                    touchDownShapes.forEach { it.gesture?.onRelease?.invoke() }
+                    touchDownShapes.forEach { it.gesture?.onRelease?.invoke(nowPoint.x, nowPoint.y) }
                 }
             }
         }

@@ -9,35 +9,6 @@ import com.lab.zhangll.magicpen.lib.setting.MagicSetting
  */
 class MagicRectSetting(shape: MagicRect) : MagicSetting<MagicRect>(shape) {
     var center: PointF? = null
-
-    var left = 0f
-        set(value) {
-            field = value
-            start = PointF(left, top)
-            reCount()
-        }
-
-    var top = 0f
-        set(value) {
-            field = value
-            start = PointF(left, top)
-            reCount()
-        }
-
-    var right = 0f
-        set(value) {
-            field = value
-            end = PointF(right, bottom)
-            reCount()
-        }
-
-    var bottom = 0f
-        set(value) {
-            field = value
-            end = PointF(right, bottom)
-            reCount()
-        }
-
     var paint: Paint? = null
 
     override fun product(shape: MagicRect): MagicRect {
@@ -57,10 +28,5 @@ class MagicRectSetting(shape: MagicRect) : MagicSetting<MagicRect>(shape) {
         }
 
         return shape
-    }
-
-    fun reCount() {
-        width = right - left
-        height = bottom - top
     }
 }

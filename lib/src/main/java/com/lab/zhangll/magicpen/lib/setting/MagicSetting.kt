@@ -17,6 +17,34 @@ abstract class MagicSetting<T : MagicShape>(shape: T) : MagicRelationship, Magic
     override var width: Float? = null
     override var height: Float? = null
 
+    var left = 0f
+        set(value) {
+            field = value
+            start = PointF(left, top)
+            reCount()
+        }
+
+    var top = 0f
+        set(value) {
+            field = value
+            start = PointF(left, top)
+            reCount()
+        }
+
+    var right = 0f
+        set(value) {
+            field = value
+            end = PointF(right, bottom)
+            reCount()
+        }
+
+    var bottom = 0f
+        set(value) {
+            field = value
+            end = PointF(right, bottom)
+            reCount()
+        }
+
     // 手势处理
     var gesture: MagicGesture? = null
     var gestureSet: (MagicGesture.() -> Unit)? = null
@@ -52,4 +80,9 @@ abstract class MagicSetting<T : MagicShape>(shape: T) : MagicRelationship, Magic
                     (start?.y ?: 0f) - value)
             end = reEnd()
         }
+
+    fun reCount() {
+        width = right - left
+        height = bottom - top
+    }
 }

@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                         gesture {
                             onClick = { toast("clicked") } // 点击时弹框
                             onDragBy = { x, y -> moveBy(x, y) } // 跟着拖动的手指动
-                            onRelease = { smoothMoveToOrigin() } // 放手后滑动到原点
+                            onRelease = { _, _ -> smoothMoveToOrigin() } // 放手后滑动到原点
                         }
                     }
 

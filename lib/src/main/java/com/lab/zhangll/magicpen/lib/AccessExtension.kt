@@ -12,12 +12,7 @@ import com.lab.zhangll.magicpen.lib.shapes.text.MagicTextSetting
 /**
  * Created by zhangll on 2017/5/20.
  */
-fun Context.magicPen(set: MagicView.() -> Unit)
-        :  MagicView {
-    val magicView = MagicView(this)
-    magicView.set()
-    return magicView
-}
+fun Context.magicPen(set: MagicView.() -> Unit) = MagicView(this).apply { set() }
 
 inline fun <reified T : MagicShape, reified R : MagicSetting<T>> MagicView.settingOf(set: R.() -> Unit): R {
     val s = T::class.java.getConstructor().newInstance()

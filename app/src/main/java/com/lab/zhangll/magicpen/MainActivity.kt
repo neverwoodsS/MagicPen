@@ -40,12 +40,25 @@ class MainActivity : AppCompatActivity() {
                         centerIn(bigCircle) // 在大圆中间
 
                         gesture {
-                            onClick = { Toast.makeText(this@MainActivity, "clicked", Toast.LENGTH_SHORT).show() } // 点击时弹框
+                            onClick = { toast("clicked") } // 点击时弹框
                             onDragBy = { x, y -> moveBy(x, y) } // 跟着拖动的手指动
                             onRelease = { smoothMoveToOrigin() } // 放手后滑动到原点
                         }
                     }
+
+                    rect {
+                        width = 300f
+                        height = 200f
+
+                        belowOf(bigCircle)
+                        topMargin = 50f
+
+                        alignLeft(bigCircle)
+                        leftMargin = 50f
+                    }
                 }
         )
     }
+
+    fun toast(text: String) = Toast.makeText(this@MainActivity, text, Toast.LENGTH_SHORT).show()
 }

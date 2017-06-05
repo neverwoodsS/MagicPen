@@ -15,10 +15,12 @@ import com.lab.zhangll.magicpen.lib.shapes.text.MagicTextSetting
 fun Context.magicPen(set: MagicView.() -> Unit) = MagicView(this).apply { set() }
 
 inline fun <reified T : MagicShape, reified R : MagicSetting<T>> MagicView.settingOf(set: R.() -> Unit): R {
-    val s = T::class.java.getConstructor().newInstance()
-    val setting = R::class.java.getConstructor(T::class.java).newInstance(s)
+    val shapeClazz = T::class.java
+    val shape = shapeClazz.getConstructor().newInstance()
+    val setting = R::class.java.getConstructor(shapeClazz).newInstance(shape)
+
     setting.set()
-    addShape(setting.generate(s))
+    addShape(setting.generate(shape))
     return setting
 }
 

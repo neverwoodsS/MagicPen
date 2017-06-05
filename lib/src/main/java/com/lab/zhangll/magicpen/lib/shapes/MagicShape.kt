@@ -77,6 +77,15 @@ abstract class MagicShape : MagicLocation, MagicDraw, MagicMotion {
                 }
             }.start()
         }
+
+        start.x = targetX
+        start.y = targetY
+        end.x = start.x + width
+        end.y = start.y + height
+    }
+
+    override fun smoothMoveCenterTo(targetX: Float, targetY: Float) {
+        smoothMoveTo(targetX - width / 2, targetY - height / 2)
     }
 
     override fun smoothMoveToOrigin() {

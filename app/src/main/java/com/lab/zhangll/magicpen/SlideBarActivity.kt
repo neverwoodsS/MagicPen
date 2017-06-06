@@ -6,7 +6,7 @@ import android.graphics.PointF
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.lab.zhangll.magicpen.lib.*
-import com.lab.zhangll.magicpen.lib.shapes.circle.MagicCircleSetting
+import com.lab.zhangll.magicpen.lib.shapes.bitmap.MagicBitmapSetting
 
 class SlideBarActivity : AppCompatActivity() {
 
@@ -17,7 +17,7 @@ class SlideBarActivity : AppCompatActivity() {
     val centerY = 200f
     val grayPaint = Paint().apply { color = Color.parseColor("#ebebeb") }
 
-    lateinit var button: MagicCircleSetting
+    lateinit var button: MagicBitmapSetting
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +43,7 @@ class SlideBarActivity : AppCompatActivity() {
 
                         gesture {
                             // 点击时将按钮移动过来
-                            onClick = { button?.smoothMoveCenterTo(firstCenterX, centerY) }
+                            onClick = { button.smoothMoveCenterTo(firstCenterX, centerY) }
                         }
                     }
 
@@ -56,15 +56,15 @@ class SlideBarActivity : AppCompatActivity() {
 
                         gesture {
                             // 点击时将按钮移动过来
-                            onClick = { button?.smoothMoveCenterTo(secondCenterX, centerY) }
+                            onClick = { button.smoothMoveCenterTo(secondCenterX, centerY) }
                         }
                     }
 
                     // 中间按钮
-                    bitmap {
+                    button = bitmap {
                         width = 120f
                         height = 120f
-                        centerIn(button)
+                        center = PointF(centerX, centerY)
                         src = R.mipmap.ic_launcher
 
                         gesture {

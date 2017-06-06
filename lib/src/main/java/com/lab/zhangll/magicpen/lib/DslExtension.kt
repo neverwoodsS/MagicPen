@@ -4,6 +4,7 @@ import android.content.Context
 import com.lab.zhangll.magicpen.lib.setting.MagicGesture
 import com.lab.zhangll.magicpen.lib.setting.MagicSetting
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape
+import com.lab.zhangll.magicpen.lib.shapes.bitmap.MagicBitmapSetting
 import com.lab.zhangll.magicpen.lib.shapes.circle.MagicCircleSetting
 import com.lab.zhangll.magicpen.lib.shapes.line.MagicLineSetting
 import com.lab.zhangll.magicpen.lib.shapes.rect.MagicRectSetting
@@ -47,3 +48,5 @@ fun MagicView.text(set: MagicTextSetting.() -> Unit) = settingOf(set)
 fun MagicView.line(set: MagicLineSetting.() -> Unit) = settingOf(set)
 
 fun MagicView.rect(set: MagicRectSetting.() -> Unit) = settingOf(set)
+
+fun MagicView.bitmap(set: MagicBitmapSetting.() -> Unit) = settingOf(set)

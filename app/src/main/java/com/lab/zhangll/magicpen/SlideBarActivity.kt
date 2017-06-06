@@ -5,10 +5,7 @@ import android.graphics.Paint
 import android.graphics.PointF
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.lab.zhangll.magicpen.lib.circle
-import com.lab.zhangll.magicpen.lib.gesture
-import com.lab.zhangll.magicpen.lib.magicPen
-import com.lab.zhangll.magicpen.lib.rect
+import com.lab.zhangll.magicpen.lib.*
 import com.lab.zhangll.magicpen.lib.shapes.circle.MagicCircleSetting
 
 class SlideBarActivity : AppCompatActivity() {
@@ -24,6 +21,7 @@ class SlideBarActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MagicPen.init(application)
         setContentView(
                 magicPen {
                     // 线条

@@ -17,7 +17,7 @@ class SlideBarActivity : AppCompatActivity() {
     val centerY = 200f
     val grayPaint = Paint().apply { color = Color.parseColor("#ebebeb") }
 
-    var button: MagicCircleSetting? = null
+    lateinit var button: MagicCircleSetting
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,10 +60,12 @@ class SlideBarActivity : AppCompatActivity() {
                         }
                     }
 
-                    // 中间圆按钮
-                    button = circle {
-                        radius = 60f
-                        center = PointF(centerX, centerY)
+                    // 中间按钮
+                    bitmap {
+                        width = 120f
+                        height = 120f
+                        centerIn(button)
+                        src = R.mipmap.ic_launcher
 
                         gesture {
                             onDragBy = { x, _ ->

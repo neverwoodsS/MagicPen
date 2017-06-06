@@ -8,10 +8,6 @@ import com.lab.zhangll.magicpen.lib.shapes.*
  * Created by zhangll on 2017/5/20.
  */
 class MagicCircle : MagicShape() {
-    override var left: Float = 0f
-    override var top: Float = 0f
-    override var right: Float = 0f
-    override var bottom: Float = 0f
     override var paint: Paint = Paint()
 
     override fun containPoint(x: Float, y: Float): Boolean {

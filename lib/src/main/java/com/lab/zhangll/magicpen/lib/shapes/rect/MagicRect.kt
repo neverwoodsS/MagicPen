@@ -8,10 +8,6 @@ import com.lab.zhangll.magicpen.lib.shapes.MagicShape
  * Created by zhangll on 2017/6/5.
  */
 class MagicRect : MagicShape() {
-    override var left: Float = 0f
-    override var top: Float = 0f
-    override var right: Float = 0f
-    override var bottom: Float = 0f
     override var paint: Paint = Paint()
 
     override fun containPoint(x: Float, y: Float) = containInRect(x, y)

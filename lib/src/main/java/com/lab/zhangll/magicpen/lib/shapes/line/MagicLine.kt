@@ -10,10 +10,6 @@ import com.lab.zhangll.magicpen.lib.shapes.MagicShape
  */
 class MagicLine : MagicShape() {
 
-    override var left: Float = 0f
-    override var top: Float = 0f
-    override var right: Float = 0f
-    override var bottom: Float = 0f
     override var paint: Paint = Paint()
 
     val k by lazy { (bottom - top) / (right - left) }

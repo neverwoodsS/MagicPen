@@ -12,6 +12,11 @@ import com.lab.zhangll.magicpen.lib.setting.MagicGesture
  */
 abstract class MagicShape : MagicLocation, MagicDraw, MagicMotion {
 
+    override var left: Float = 0f
+    override var top: Float = 0f
+    override var right: Float = 0f
+    override var bottom: Float = 0f
+
     lateinit var parent: View
     open var gesture: MagicGesture? = null
 

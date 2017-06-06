@@ -65,7 +65,7 @@ class SlideBarActivity : AppCompatActivity() {
                         width = 120f
                         height = 120f
                         center = PointF(centerX, centerY)
-                        src = R.mipmap.ic_launcher
+                        src = R.mipmap.ic_launcher // file = "..."
 
                         gesture {
                             onDragBy = { x, _ ->

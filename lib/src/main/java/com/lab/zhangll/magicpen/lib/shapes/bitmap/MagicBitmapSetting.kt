@@ -46,28 +46,30 @@ class MagicBitmapSetting(shape: MagicBitmap) : MagicSetting<MagicBitmap>(shape) 
 
     private fun getBitmapFromFile(path: String): Bitmap {
         val temp = BitmapFactory.decodeFile(path)
-        if (width == null || height == null) {
-            return temp
-        } else {
-            if (width!! > temp.width || height!! > temp.height) {
-                return temp
-            }
 
-            return scale(temp, width!! / temp.width, height!! / temp.height)
+        // 若无指定宽高，则默认为图片宽高
+        if (width == null || height == null) {
+            width = temp.width.toFloat()
+            height = temp.height.toFloat()
+
+            return temp
         }
+
+        return scale(temp, width!! / temp.width, height!! / temp.height)
     }
 
     private fun getBitmapFromSrc(id: Int): Bitmap {
         val temp = BitmapFactory.decodeResource(MagicPen.application.resources, id)
-        if (width == null || height == null) {
-            return temp
-        } else {
-            if (width!! > temp.width || height!! > temp.height) {
-                return temp
-            }
 
-            return scale(temp, width!! / temp.width, height!! / temp.height)
+        // 若无指定宽高，则默认为图片宽高
+        if (width == null || height == null) {
+            width = temp.width.toFloat()
+            height = temp.height.toFloat()
+
+            return temp
         }
+
+        return scale(temp, width!! / temp.width, height!! / temp.height)
     }
 
     private fun scale(temp: Bitmap, scaleX: Float, scaleY: Float): Bitmap {

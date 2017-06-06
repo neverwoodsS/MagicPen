@@ -36,7 +36,7 @@ class SlideBarActivity : AppCompatActivity() {
 
                     // 圆点
                     circle {
-                        radius = 21f
+                        radius = 30f
                         center = PointF(firstCenterX, centerY)
 
                         paint = grayPaint
@@ -49,7 +49,7 @@ class SlideBarActivity : AppCompatActivity() {
 
                     // 圆点
                     circle {
-                        radius = 21f
+                        radius = 30f
                         center = PointF(secondCenterX, centerY)
 
                         paint = grayPaint

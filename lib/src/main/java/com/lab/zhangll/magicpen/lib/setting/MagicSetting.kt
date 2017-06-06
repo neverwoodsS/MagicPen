@@ -20,30 +20,38 @@ abstract class MagicSetting<T : MagicShape>(shape: T) : MagicRelationship, Magic
     var left = 0f
         set(value) {
             field = value
-            start = PointF(left, top)
+            start = PointF(value, top)
             reCount()
         }
+
+        get() = start?.x ?: 0f
 
     var top = 0f
         set(value) {
             field = value
-            start = PointF(left, top)
+            start = PointF(left, value)
             reCount()
         }
+
+        get() = start?.y ?: 0f
 
     var right = 0f
         set(value) {
             field = value
-            end = PointF(right, bottom)
+            end = PointF(value, bottom)
             reCount()
         }
+
+        get() = end?.x ?: 0f
 
     var bottom = 0f
         set(value) {
             field = value
-            end = PointF(right, bottom)
+            end = PointF(right, value)
             reCount()
         }
+
+        get() = end?.y ?: 0f
 
     // 手势处理
     var gesture: MagicGesture? = null

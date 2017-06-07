@@ -151,6 +151,6 @@ magicPen {
 }
 ```
 
-![效果图](slidebar.gif)
+![效果图](slide.gif)
 
 

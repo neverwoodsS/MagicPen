@@ -8,13 +8,26 @@ import android.graphics.*
 /**
  * Created by zhangll on 2017/6/6.
  */
-class MagicBitmapSetting(shape: MagicBitmap) : MagicSetting<MagicBitmap>(shape) {
+class MagicBitmapSetting(val shape: MagicBitmap) : MagicSetting<MagicBitmap>(shape) {
     var center: PointF? = null
 
     var paint: Paint? = null
 
     var file: String? = null
+        set(value) {
+            if (value != null && field != value) {
+                field = value
+                shape.bitmap = getBitmapFromFile(value)
+            }
+        }
+
     var src: Int? = null
+        set(value) {
+            if (value != null && field != value) {
+                field = value
+                shape.bitmap = getBitmapFromSrc(value)
+            }
+        }
 
     override fun product(shape: MagicBitmap): MagicBitmap {
         // 根据不同配置获取 bitmap

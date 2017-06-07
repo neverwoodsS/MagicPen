@@ -43,7 +43,10 @@ class SlideBarActivity : AppCompatActivity() {
 
                         gesture {
                             // 点击时将按钮移动过来
-                            onClick = { button.smoothMoveCenterTo(firstCenterX, centerY) }
+                            onClick = {
+                                button.src = R.mipmap.slide_button_left_normal
+                                button.smoothMoveCenterTo(firstCenterX, centerY)
+                            }
                         }
                     }
 
@@ -56,33 +59,56 @@ class SlideBarActivity : AppCompatActivity() {
 
                         gesture {
                             // 点击时将按钮移动过来
-                            onClick = { button.smoothMoveCenterTo(secondCenterX, centerY) }
+                            onClick = {
+                                button.src = R.mipmap.slide_button_right_normal
+                                button.smoothMoveCenterTo(secondCenterX, centerY)
+                            }
                         }
                     }
 
                     // 中间按钮
                     button = bitmap {
+                        val divideX1 = centerX - 150 // left  区域和 center 区域的交接点
+                        val divideX2 = centerX + 150 // right 区域和 center 区域的交接点
+
                         width = 120f
                         height = 120f
                         center = PointF(centerX, centerY)
-                        src = R.mipmap.ic_launcher // file = "..."
+                        src = R.mipmap.slide_button_center_normal // file = "..."
 
                         gesture {
                             onDragBy = { x, _ ->
-                                // 在指定范围内跟着手指拖动（仅 X 轴）
-                                if ((x + downPoint.x) in firstCenterX..secondCenterX) {
+                                val targetX = x + downPoint.x
+                                if (targetX in firstCenterX..secondCenterX) { // 在指定范围内跟着手指拖动（仅 X 轴）
+                                    src = when(targetX) { // 根据不同的位置，加载不同的资源
+                                        in 0f..divideX1 -> R.mipmap.slide_button_left_pressed
+                                        in divideX2..Float.MAX_VALUE -> R.mipmap.slide_button_right_pressed
+                                        else -> R.mipmap.slide_button_center_pressed
+                                    }
+
                                     moveBy(x, 0f)
                                 }
                             }
 
                             onRelease = { x, _ ->
                                 // 在不同位置放手，移动至不同的位置
-                                val targetX = when(x) {
-                                    in 0f..(centerX - 200) -> firstCenterX
-                                    in (centerX + 200)..Float.MAX_VALUE -> secondCenterX
-                                    else -> centerX
+                                val target: Float
+                                when(x) {
+                                    in 0f..divideX1 -> {
+                                        target = firstCenterX
+                                        src = R.mipmap.slide_button_left_normal
+                                    }
+                                    in divideX2..Float.MAX_VALUE -> {
+                                        target = secondCenterX
+                                        src = R.mipmap.slide_button_right_normal
+                                    }
+                                    else -> {
+                                        target = centerX
+                                        src = R.mipmap.slide_button_center_normal
+                                    }
                                 }
-                                smoothMoveCenterTo(targetX, centerY)
+
+                                smoothMoveCenterTo(target, centerY)
                             }
                         }
                     }

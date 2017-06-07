@@ -24,6 +24,7 @@ class SlideBarActivity : AppCompatActivity() {
         MagicPen.init(application)
         setContentView(
                 magicPen {
+                    setBackgroundColor(Color.WHITE)
                     rect { // 线条
                         left = firstCenterX
                         right = secondCenterX

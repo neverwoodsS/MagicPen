@@ -5,6 +5,7 @@ import com.lab.zhangll.magicpen.lib.setting.MagicGesture
 import com.lab.zhangll.magicpen.lib.setting.MagicSetting
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape
 import com.lab.zhangll.magicpen.lib.shapes.bitmap.MagicBitmapSetting
+import com.lab.zhangll.magicpen.lib.shapes.circle.MagicArcSetting
 import com.lab.zhangll.magicpen.lib.shapes.circle.MagicCircleSetting
 import com.lab.zhangll.magicpen.lib.shapes.line.MagicLineSetting
 import com.lab.zhangll.magicpen.lib.shapes.rect.MagicRectSetting
@@ -50,3 +51,5 @@ fun MagicView.line(set: MagicLineSetting.() -> Unit) = settingOf(set)
 fun MagicView.rect(set: MagicRectSetting.() -> Unit) = settingOf(set)
 
 fun MagicView.bitmap(set: MagicBitmapSetting.() -> Unit) = settingOf(set)
+
+fun MagicView.arc(set: MagicArcSetting.() -> Unit) = settingOf(set)

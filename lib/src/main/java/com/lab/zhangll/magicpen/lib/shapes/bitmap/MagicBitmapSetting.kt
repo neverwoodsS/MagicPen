@@ -8,7 +8,7 @@ import android.graphics.*
 /**
  * Created by zhangll on 2017/6/6.
  */
-class MagicBitmapSetting(val shape: MagicBitmap) : MagicSetting<MagicBitmap>(shape) {
+class MagicBitmapSetting(shape: MagicBitmap) : MagicSetting<MagicBitmap>(shape) {
     var center: PointF? = null
 
     var paint: Paint? = null

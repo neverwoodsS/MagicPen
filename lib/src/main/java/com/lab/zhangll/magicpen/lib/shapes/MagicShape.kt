@@ -101,4 +101,6 @@ abstract class MagicShape : MagicLocation, MagicDraw, MagicMotion {
         return x in left..right
                 && y in top..bottom
     }
+
+    override fun invalidate() = parent.invalidate()
 }

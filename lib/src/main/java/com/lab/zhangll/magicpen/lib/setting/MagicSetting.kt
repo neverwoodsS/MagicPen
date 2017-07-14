@@ -6,7 +6,7 @@ import com.lab.zhangll.magicpen.lib.shapes.MagicShape
 /**
  * Created by zhangll on 2017/5/20.
  */
-abstract class MagicSetting<T : MagicShape>(shape: T) : MagicRelationship, MagicMotion by shape {
+abstract class MagicSetting<T : MagicShape>(open val shape: T) : MagicRelationship, MagicMotion by shape {
 
     /** 用于生成对应图形类的方法，由具体的子类实现 */
     abstract fun product(shape: T): T
@@ -92,5 +92,10 @@ abstract class MagicSetting<T : MagicShape>(shape: T) : MagicRelationship, Magic
     fun reCount() {
         width = right - left
         height = bottom - top
+    }
+
+    override fun invalidate() {
+        product(shape)
+        shape.invalidate()
     }
 }

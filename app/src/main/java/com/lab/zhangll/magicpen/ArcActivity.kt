@@ -81,10 +81,8 @@ class ArcActivity : AppCompatActivity() {
         }.start()
     }
 
-    private fun progressing() {
-        with(progress) {
-            sweepAngle += (240f / 200)
-            invalidate()
-        }
+    private fun progressing() = with(progress) {
+        sweepAngle += (240f / 200)
+        invalidate()
     }
 }

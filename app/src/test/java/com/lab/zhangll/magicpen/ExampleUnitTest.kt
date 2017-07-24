@@ -15,4 +15,12 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         assertEquals(4, (2 + 2).toLong())
     }
+
+    @Test
+    fun test() {
+        arrayOf("郭靖", "文天祥", "薛仁贵")
+                .zip(arrayOf(0, 0, 2))
+                .map { it.first.substring(it.second, it.second + 1) }
+                .forEach { print(it) }
+    }
 }

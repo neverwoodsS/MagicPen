@@ -18,6 +18,8 @@ interface MagicRelationship {
     var topMargin: Float
     var bottomMargin: Float
 
+    val relations: MutableList<() -> Unit>
+
     private fun <T : MagicShape> guardParameters(another: MagicSetting<T>) {
         if (another.start == null || another.end == null) {
             throw Exception("不允许参照对象为空")
@@ -33,72 +35,117 @@ interface MagicRelationship {
     fun <T : MagicShape> belowOf(another: MagicSetting<T>) {
         guardParameters(another)
 
-        start = PointF(start?.x ?: another.start!!.x,
+        val func = {
+            start = PointF(start?.x ?: another.start!!.x,
                 another.end!!.y)
-        end = reEnd()
+            end = reEnd()
+        }
+
+        func.invoke()
+        relations.add(func)
     }
 
     fun <T : MagicShape> aboveOf(another: MagicSetting<T>) {
         guardParameters(another)
 
-        start = PointF(start?.x ?: another.start!!.x,
-                another.start!!.y - height!!)
-        end = reEnd()
+        val func = {
+            start = PointF(start?.x ?: another.start!!.x,
+                    another.start!!.y - height!!)
+            end = reEnd()
+        }
+
+        func.invoke()
+        relations.add(func)
     }
 
     fun <T : MagicShape> rightOf(another: MagicSetting<T>) {
         guardParameters(another)
 
-        start = PointF(another.end!!.x,
-                start?.y ?: another.start!!.y)
-        end = reEnd()
+        val func = {
+            start = PointF(another.end!!.x,
+                    start?.y ?: another.start!!.y)
+            end = reEnd()
+        }
+
+        func.invoke()
+        relations.add(func)
     }
 
     fun <T : MagicShape> leftOf(another: MagicSetting<T>) {
         guardParameters(another)
 
-        start = PointF(another.start!!.x - width!!,
-                start?.y ?: another.start!!.y)
-        end = reEnd()
+        val func = {
+            start = PointF(another.start!!.x - width!!,
+                    start?.y ?: another.start!!.y)
+            end = reEnd()
+        }
+
+        func.invoke()
+        relations.add(func)
     }
 
     fun <T : MagicShape> centerIn(another: MagicSetting<T>) {
         guardParameters(another)
 
-        start = PointF(another.start!!.x / 2 + another.end!!.x / 2 - width!! / 2,
-                another.start!!.y / 2 + another.end!!.y / 2 - height!! / 2)
-        end = reEnd()
+        val func = {
+            start = PointF(another.start!!.x / 2 + another.end!!.x / 2 - width!! / 2,
+                    another.start!!.y / 2 + another.end!!.y / 2 - height!! / 2)
+            end = reEnd()
+        }
+
+        func.invoke()
+        relations.add(func)
     }
 
     fun <T : MagicShape> alignTop(another: MagicSetting<T>) {
         guardParameters(another)
 
-        start = PointF(start?.x ?: another.start!!.x,
-                another.start!!.y)
-        end = reEnd()
+        val func = {
+            start = PointF(start?.x ?: another.start!!.x,
+                    another.start!!.y)
+            end = reEnd()
+        }
+
+        func.invoke()
+        relations.add(func)
     }
 
     fun <T : MagicShape> alignBottom(another: MagicSetting<T>) {
         guardParameters(another)
 
-        start = PointF(start?.x ?: another.start!!.x,
-                another.end!!.y - height!!)
-        end = reEnd()
+        val func = {
+            start = PointF(start?.x ?: another.start!!.x,
+                    another.end!!.y - height!!)
+            end = reEnd()
+        }
+
+        func.invoke()
+        relations.add(func)
     }
 
     fun <T : MagicShape> alignLeft(another: MagicSetting<T>) {
         guardParameters(another)
 
-        start = PointF(another.start!!.x,
-                start?.y ?: another.start!!.y)
-        end = reEnd()
+        val func = {
+            start = PointF(another.start!!.x,
+                    start?.y ?: another.start!!.y)
+            end = reEnd()
+        }
+
+        func.invoke()
+        relations.add(func)
     }
 
     fun <T : MagicShape> alignRight(another: MagicSetting<T>) {
         guardParameters(another)
 
-        start = PointF(another.end!!.x - width!!,
-                start?.y ?: another.start!!.y)
-        end = reEnd()
+        val func = {
+            start = PointF(another.end!!.x - width!!,
+                    start?.y ?: another.start!!.y)
+            end = reEnd()
+        }
+
+        func.invoke()
+        relations.add(func)
     }
 }

@@ -17,6 +17,8 @@ abstract class MagicSetting<T : MagicShape>(open val shape: T) : MagicRelationsh
     override var width: Float? = null
     override var height: Float? = null
 
+    override val relations = mutableListOf<() -> Unit>()
+
     var left = 0f
         set(value) {
             field = value
@@ -60,33 +62,49 @@ abstract class MagicSetting<T : MagicShape>(open val shape: T) : MagicRelationsh
     override var leftMargin = 0f
         set(value) {
             field = value
-            start = PointF((start?.x ?: 0f) + value,
-                    start?.y ?: 0f)
-            end = reEnd()
+            val func = {
+                start = PointF((start?.x ?: 0f) + value,
+                        start?.y ?: 0f)
+                end = reEnd()
+            }
+            func.invoke()
+            relations.add(func)
         }
 
     override var rightMargin = 0f
         set(value) {
             field = value
-            start = PointF((start?.x ?: 0f) - value,
-                    start?.y ?: 0f)
-            end = reEnd()
+            val func = {
+                start = PointF((start?.x ?: 0f) - value,
+                        start?.y ?: 0f)
+                end = reEnd()
+            }
+            func.invoke()
+            relations.add(func)
         }
 
     override var topMargin = 0f
         set(value) {
             field = value
-            start = PointF(start?.x ?: 0f,
-                    (start?.y ?: 0f) + value)
-            end = reEnd()
+            val func = {
+                start = PointF(start?.x ?: 0f,
+                        (start?.y ?: 0f) + value)
+                end = reEnd()
+            }
+            func.invoke()
+            relations.add(func)
         }
 
     override var bottomMargin = 0f
         set(value) {
             field = value
-            start = PointF(start?.x ?: 0f,
-                    (start?.y ?: 0f) - value)
-            end = reEnd()
+            val func = {
+                start = PointF(start?.x ?: 0f,
+                        (start?.y ?: 0f) - value)
+                end = reEnd()
+            }
+            func.invoke()
+            relations.add(func)
         }
 
     fun reCount() {
@@ -95,6 +113,7 @@ abstract class MagicSetting<T : MagicShape>(open val shape: T) : MagicRelationsh
     }
 
     override fun invalidate() {
+        relations.forEach { it.invoke() }
         product(shape)
         shape.invalidate()
     }

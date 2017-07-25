@@ -8,6 +8,8 @@ import com.lab.zhangll.magicpen.lib.*
 import com.lab.zhangll.magicpen.lib.paint.paint
 import com.lab.zhangll.magicpen.lib.setting.MagicSetting
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape
+import com.lab.zhangll.magicpen.lib.shapes.text.MagicText
+import com.lab.zhangll.magicpen.lib.shapes.text.MagicTextSetting
 import com.lab.zhangll.magicpen.lib.shapes.width
 
 /**
@@ -17,7 +19,9 @@ class GravityProgressActivity : AppCompatActivity() {
 
     val tagWidth = 100f
     val tagHeight = 60f
+    var text: MagicTextSetting? = null
     val formula = computeFormula(800f, 60f)
+
     var dragPoint = PointF(100f, 200f)
 
     var settings = mutableListOf<MagicSetting<out MagicShape>>()
@@ -30,19 +34,19 @@ class GravityProgressActivity : AppCompatActivity() {
                     line {
                         start = PointF(100f, 200f)
                         end = dragPoint
-                        paint = paint { strokeWidth = 3f }
-                    }.apply { settings.add(this) }
+                        paint = paint { strokeWidth = 5f }
+                    }.wait()
 
                     line {
                         start = dragPoint
                         end = PointF(900f, 200f)
-                        paint = paint { strokeWidth = 3f }
-                    }.apply { settings.add(this) }
+                        paint = paint { strokeWidth = 5f }
+                    }.wait()
 
                     val point = circle {
                         center = dragPoint
                         radius = 0f
-                    }.apply { settings.add(this) }
+                    }.wait()
 
                     val tag = tag {
                         width = tagWidth
@@ -50,13 +54,13 @@ class GravityProgressActivity : AppCompatActivity() {
                         centerIn(point)
                         aboveOf(point)
                         bottomMargin = 25f
-                    }.apply { settings.add(this) }
+                    }.wait()
 
-                    text {
+                    text = text {
                         content = "90%"
                         paint = Paint().apply { textSize = 40f }
                         centerIn(tag)
-                    }.apply { settings.add(this) }
+                    }.wait() as MagicTextSetting
                 }
         )
 
@@ -81,6 +85,7 @@ class GravityProgressActivity : AppCompatActivity() {
         if (dragPoint.x < 900) {
             dragPoint.x += 2
             dragPoint.y = formula.invoke(dragPoint.x - 100) + 200
+            text?.content = "${((dragPoint.x - 100) / 800f * 100).toInt()}%"
 
             println("dragPoint: ${dragPoint.x}, ${dragPoint.y}")
             settings.forEach { it.invalidate() }
@@ -137,4 +142,9 @@ class GravityProgressActivity : AppCompatActivity() {
     }
 
     fun MagicView.tag(set: TagSetting.() -> Unit) = settingOf(set)
+
+    fun <T : MagicShape> MagicSetting<T>.wait(): MagicSetting<T> {
+        settings.add(this)
+        return this
+    }
 }

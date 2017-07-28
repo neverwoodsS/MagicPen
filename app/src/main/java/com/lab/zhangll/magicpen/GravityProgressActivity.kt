@@ -8,7 +8,6 @@ import com.lab.zhangll.magicpen.lib.*
 import com.lab.zhangll.magicpen.lib.paint.paint
 import com.lab.zhangll.magicpen.lib.setting.MagicSetting
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape
-import com.lab.zhangll.magicpen.lib.shapes.text.MagicText
 import com.lab.zhangll.magicpen.lib.shapes.text.MagicTextSetting
 import com.lab.zhangll.magicpen.lib.shapes.width
 
@@ -20,7 +19,7 @@ class GravityProgressActivity : AppCompatActivity() {
     val tagWidth = 100f
     val tagHeight = 60f
     var text: MagicTextSetting? = null
-    val formula = computeFormula(800f, 60f)
+    val formula = computeFormula(800f, 30f)
 
     var dragPoint = PointF(100f, 200f)
 

@@ -64,13 +64,8 @@ class GravityProgressActivity : AppCompatActivity() {
         )
 
         object: CountDownTimer(30000, 16) {
-            override fun onFinish() {
-
-            }
-
-            override fun onTick(millisUntilFinished: Long) {
-                progressing()
-            }
+            override fun onFinish() = Unit
+            override fun onTick(millisUntilFinished: Long) = progressing()
         }.start()
     }
 

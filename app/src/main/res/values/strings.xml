@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MagicPen</string>
+    <string name="simple_sample">简单示例</string>
 </resources>

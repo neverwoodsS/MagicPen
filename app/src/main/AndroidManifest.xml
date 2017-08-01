@@ -9,12 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".GravityProgressActivity"></activity>
+        <activity android:name=".SlideBarActivity"></activity>
+        <activity android:name=".ArcActivity"></activity>
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".SlideBarActivity">
-        </activity>
-        <activity android:name=".ArcActivity">
-        </activity>
-        <activity android:name=".GravityProgressActivity">
+        <activity android:name=".EntryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

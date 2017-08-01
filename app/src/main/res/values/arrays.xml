@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="entry">
+        <item>GravityProgress</item>
+        <item>SlideBar</item>
+        <item>Arc</item>
+        <item>SimpleSample</item>
+
+    </array>
+</resources>

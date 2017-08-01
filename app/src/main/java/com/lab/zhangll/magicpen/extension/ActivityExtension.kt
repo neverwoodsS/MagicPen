@@ -8,6 +8,6 @@ import android.view.View
  * author:luo
  * e-mail:xiasuhuei321@163.com
  */
-fun <T: View> AppCompatActivity.find(id: Int): T {
+inline fun <reified T : View> AppCompatActivity.find(id: Int): T {
     return findViewById(id) as T
 }

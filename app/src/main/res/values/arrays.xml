@@ -5,6 +5,15 @@
         <item>SlideBar</item>
         <item>Arc</item>
         <item>SimpleSample</item>
+        <item>ShapeSample</item>
+    </array>
 
+    <array name="shape">
+        <item>矩形</item>
+        <item>圆弧</item>
+        <item>Bitmap</item>
+        <item>圆形</item>
+        <item>文字</item>
+        <item>线</item>
     </array>
 </resources>

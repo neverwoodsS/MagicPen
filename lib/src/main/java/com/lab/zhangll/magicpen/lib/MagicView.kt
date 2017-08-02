@@ -2,7 +2,6 @@ package com.lab.zhangll.magicpen.lib
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Point
 import android.graphics.PointF
 import android.view.MotionEvent
 import android.view.View
@@ -20,6 +19,7 @@ class MagicView(context: Context) : View(context) {
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+        // let shape draw itself
         shapes.forEach { it.drawOn(canvas) }
     }
 

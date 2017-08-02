@@ -1,6 +1,5 @@
 package com.lab.zhangll.magicpen
 
-import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.PointF
 import android.os.Bundle
@@ -12,10 +11,8 @@ import android.widget.LinearLayout
 import android.widget.ListView
 import com.lab.zhangll.magicpen.adapter.EntryListAdapter
 import com.lab.zhangll.magicpen.extension.find
-import com.lab.zhangll.magicpen.lib.arc
-import com.lab.zhangll.magicpen.lib.magicPen
+import com.lab.zhangll.magicpen.lib.*
 import com.lab.zhangll.magicpen.lib.paint.paint
-import com.lab.zhangll.magicpen.lib.rect
 
 /**
  * Created by xiasuhuei321 on 2017/8/1.
@@ -23,12 +20,15 @@ import com.lab.zhangll.magicpen.lib.rect
  * e-mail:xiasuhuei321@163.com
  */
 class ShapeSampleActivity : AppCompatActivity() {
+    // FIXME：绘制的bitmap和圆形，设置其父View gravity参数失效
     var lv_list: ListView? = null
     var ll_container: LinearLayout? = null
     var dataList: Array<String>? = null
 
     var rect: View? = null
     var arc: View? = null
+    var bmp: View? = null
+    var circle: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,10 +52,10 @@ class ShapeSampleActivity : AppCompatActivity() {
                     addView(createArc())
                 }
                 2 -> {
-
+                    addView(createBmpView())
                 }
                 3 -> {
-                    // TODO 圆形
+                    addView(createCircle())
                 }
                 4 -> {
                     // TODO 文字
@@ -107,6 +107,36 @@ class ShapeSampleActivity : AppCompatActivity() {
         }
 
         return arc!!
+    }
+
+    fun createBmpView(): View {
+        if (bmp == null) {
+            bmp = magicPen {
+                bitmap {
+                    start = PointF(0f, 0f)
+                    end = PointF(0f, 0f)
+                    src = R.mipmap.ic_launcher_round
+                }
+            }
+        }
+
+        return bmp!!
+    }
+
+    fun createCircle(): View {
+        if (circle == null) {
+            circle = magicPen {
+                circle {
+                    center = PointF(200f, 200f)
+                    radius = (100f)
+                    paint {
+                        color = resources.getColor(R.color.abc_color_highlight_material)
+                    }
+                }
+            }
+        }
+
+        return circle!!
     }
 
     fun addView(v: View) {

@@ -31,9 +31,11 @@ class EntryListAdapter : BaseAdapter() {
         if (convertView == null) {
             view = LayoutInflater.from(context)
                     .inflate(android.R.layout.simple_list_item_1, null)
+        } else {
+            view = convertView
         }
 
-        val text1 = view?.findViewById(android.R.id.text1) as TextView
+        val text1 = view!!.findViewById(android.R.id.text1) as TextView
         text1.text = dataList?.get(position)
         return convertView ?: view
     }

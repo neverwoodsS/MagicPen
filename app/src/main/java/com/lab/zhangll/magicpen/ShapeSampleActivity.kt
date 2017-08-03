@@ -4,7 +4,6 @@ import android.graphics.Paint
 import android.graphics.PointF
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -29,6 +28,8 @@ class ShapeSampleActivity : AppCompatActivity() {
     var arc: View? = null
     var bmp: View? = null
     var circle: View? = null
+    var line: View? = null
+    var text: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,10 +59,10 @@ class ShapeSampleActivity : AppCompatActivity() {
                     addView(createCircle())
                 }
                 4 -> {
-                    // TODO 文字
+                    addView(createText())
                 }
                 5 -> {
-                    // TODO 线
+                    addView(createLine())
                 }
             }
         }
@@ -139,12 +140,40 @@ class ShapeSampleActivity : AppCompatActivity() {
         return circle!!
     }
 
+    fun createText(): View {
+        if (text == null) {
+            text = magicPen {
+                text {
+                    content = "hello world"
+                    center = PointF(100f, 100f)
+                    width = 100f
+                    height = 100f
+                    paint = Paint().apply { textSize = 40f }
+                }
+            }
+        }
+        return text!!
+    }
+
+    fun createLine(): View {
+        if (line == null) {
+            line = magicPen {
+                line {
+                    start = PointF(100f, 100f)
+                    end = PointF(200f, 200f)
+                    width = 100f
+                    paint = Paint().apply { strokeWidth = 10f }
+                }
+            }
+        }
+        return line!!
+    }
+
     fun addView(v: View) {
         val childView = ll_container!!.getChildAt(1)
         if (childView != null) {
             ll_container!!.removeViewAt(1)
         }
         ll_container!!.addView(v)
-        ll_container!!.gravity = Gravity.CENTER_HORIZONTAL
     }
 }

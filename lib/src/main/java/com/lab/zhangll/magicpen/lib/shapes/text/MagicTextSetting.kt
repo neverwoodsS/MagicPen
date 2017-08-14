@@ -59,6 +59,6 @@ class MagicTextSetting(shape: MagicText) : MagicSetting<MagicText>(shape) {
 
         val fontMetrics = paint!!.fontMetrics
 //        val yOffSet = fontMetrics.descent - (fontMetrics.descent - fontMetrics.ascent) / 2
-        height = fontMetrics.descent + fontMetrics.ascent
+        height = fontMetrics.descent - fontMetrics.ascent
     }
 }

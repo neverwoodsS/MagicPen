@@ -12,7 +12,8 @@ class MagicText : MagicShape() {
 
     lateinit var text: String
 
-    override fun drawOn(canvas: Canvas?) = canvas?.drawText(text, left, top, paint)
+    // 因为 drawText 提供的 y 值实际上是 baseline 的 y 值，而不是起止点 y 值，所以需经过换算
+    override fun drawOn(canvas: Canvas?) = canvas?.drawText(text, left, bottom - paint.fontMetrics.bottom, paint)
 
     override fun containPoint(x: Float, y: Float) = containInRect(x, y)
 }

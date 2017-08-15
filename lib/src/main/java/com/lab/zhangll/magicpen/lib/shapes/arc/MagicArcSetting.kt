@@ -21,6 +21,7 @@ class MagicArcSetting(shape: MagicArc) : MagicSetting<MagicArc>(shape) {
 
     var startAngle = 0f
     var sweepAngle = 0f
+    var useCenter = false
 
     var paint: Paint? = null
 
@@ -38,6 +39,7 @@ class MagicArcSetting(shape: MagicArc) : MagicSetting<MagicArc>(shape) {
             shape.paint = paint ?: Paint()
             shape.startAngle = startAngle
             shape.sweepAngle = sweepAngle
+            shape.useCenter = useCenter
         } else {
             throw Exception("条件不充足")
         }

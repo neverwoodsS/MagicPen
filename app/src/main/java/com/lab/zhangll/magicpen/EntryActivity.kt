@@ -34,6 +34,7 @@ class EntryActivity : AppCompatActivity() {
                 1 -> start<SlideBarActivity>()
                 2 -> start<ArcActivity>()
                 3 -> start<MainActivity>()
+                4 -> start<ChartActivity>()
             }
         }
     }

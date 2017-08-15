@@ -37,7 +37,7 @@ interface MagicRelationship {
 
         val func = {
             start = PointF(start?.x ?: another.start!!.x,
-                another.end!!.y)
+                if (another.end!!.y > another.start!!.y) another.end!!.y else another.start!!.y)
             end = reEnd()
         }
 
@@ -50,7 +50,7 @@ interface MagicRelationship {
 
         val func = {
             start = PointF(start?.x ?: another.start!!.x,
-                    another.start!!.y - height!!)
+                    (if (another.end!!.y > another.start!!.y) another.start!!.y else another.end!!.y) - height!!)
             end = reEnd()
         }
 
@@ -62,7 +62,7 @@ interface MagicRelationship {
         guardParameters(another)
 
         val func = {
-            start = PointF(another.end!!.x,
+            start = PointF(if (another.end!!.x > another.start!!.x) another.end!!.x else another.start!!.x,
                     start?.y ?: another.start!!.y)
             end = reEnd()
         }
@@ -75,7 +75,7 @@ interface MagicRelationship {
         guardParameters(another)
 
         val func = {
-            start = PointF(another.start!!.x - width!!,
+            start = PointF((if (another.end!!.x > another.start!!.x) another.start!!.x else another.end!!.x) - width!!,
                     start?.y ?: another.start!!.y)
             end = reEnd()
         }

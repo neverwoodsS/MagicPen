@@ -13,6 +13,7 @@
         <activity android:name=".SlideBarActivity"></activity>
         <activity android:name=".ArcActivity"></activity>
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ChartActivity"></activity>
         <activity android:name=".EntryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

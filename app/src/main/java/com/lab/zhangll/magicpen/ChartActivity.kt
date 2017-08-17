@@ -12,7 +12,6 @@ import com.lab.zhangll.magicpen.lib.paint.paint
  * Created by zhangll on 2017/8/8.
  */
 class ChartActivity : AppCompatActivity() {
-
     val circleCenter = PointF(700f, 800f)
     val arcRadius = 500f
 
@@ -25,7 +24,6 @@ class ChartActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         setContentView(
                 magicPen {

@@ -17,11 +17,3 @@ var MagicLocation.centerX
 var MagicLocation.centerY
     get() = (top + bottom) / 2
     private set(value) {}
-
-var MagicLocation.width
-    get() = (right - left)
-    private set(value) {}
-
-var MagicLocation.height
-    get() = (bottom - top)
-    private set(value) {}

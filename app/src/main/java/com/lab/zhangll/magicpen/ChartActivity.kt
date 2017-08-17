@@ -142,6 +142,7 @@ class ChartActivity : AppCompatActivity() {
                                 paint = paint { textSize = 50f }
                                 centerIn(temp)
                                 aboveOf(temp)
+                                bottomMargin = 20f
                             }
 
                         if (angle == 0)

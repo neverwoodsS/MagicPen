@@ -2,54 +2,53 @@ package com.lab.zhangll.magicpen.lib
 
 import android.content.Context
 import com.lab.zhangll.magicpen.lib.setting.MagicGesture
-import com.lab.zhangll.magicpen.lib.setting.MagicSetting
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape
-import com.lab.zhangll.magicpen.lib.shapes.bitmap.MagicBitmapSetting
-import com.lab.zhangll.magicpen.lib.shapes.circle.MagicArcSetting
-import com.lab.zhangll.magicpen.lib.shapes.circle.MagicCircleSetting
-import com.lab.zhangll.magicpen.lib.shapes.line.MagicLineSetting
-import com.lab.zhangll.magicpen.lib.shapes.rect.MagicRectSetting
-import com.lab.zhangll.magicpen.lib.shapes.text.MagicTextSetting
+import com.lab.zhangll.magicpen.lib.shapes.arc.MagicArc
+import com.lab.zhangll.magicpen.lib.shapes.bitmap.MagicBitmap
+import com.lab.zhangll.magicpen.lib.shapes.circle.MagicCircle
+import com.lab.zhangll.magicpen.lib.shapes.line.MagicLine
+import com.lab.zhangll.magicpen.lib.shapes.rect.MagicRect
+import com.lab.zhangll.magicpen.lib.shapes.text.MagicText
 
 /**
  * Created by zhangll on 2017/5/20.
  */
 fun Context.magicPen(set: MagicView.() -> Unit) = MagicView(this).apply { set() }
 
-inline fun <reified T : MagicShape, reified R : MagicSetting<T>> MagicView.settingOf(set: R.() -> Unit): R {
+inline fun <reified T : MagicShape> MagicView.settingOf(set: T.() -> Unit): T {
     val shapeClazz = T::class.java
     val shape = shapeClazz.getConstructor().newInstance()
-    val setting = R::class.java.getConstructor(shapeClazz).newInstance(shape)
+    shape.parent = this
+    shape.set()
 
-    setting.set()
-    addShape(setting.generate(shape))
-    return setting
+    addShape(shape)
+    return shape
 }
 
-fun <T : MagicShape> MagicSetting<T>.gesture(set: MagicGesture.() -> Unit) {
+fun <T : MagicShape> T.gesture(set: MagicGesture.() -> Unit) {
     this.gesture = MagicGesture().apply { set.invoke(this) }
 }
 
-fun <T : MagicShape> MagicSetting<T>.generate(shape: T): T {
-    val productShape = product(shape)
+//fun <T : MagicShape> T.generate(shape: T): T {
+//    val productShape = product(shape)
+//
+//    if (gestureSet != null) {
+//        gesture = MagicGesture()
+//        gestureSet!!.invoke(gesture!!)
+//    }
+//
+//    productShape.gesture = gesture
+//    return productShape
+//}
 
-    if (gestureSet != null) {
-        gesture = MagicGesture()
-        gestureSet!!.invoke(gesture!!)
-    }
+fun MagicView.circle(set: MagicCircle.() -> Unit) = settingOf(set)
 
-    productShape.gesture = gesture
-    return productShape
-}
+fun MagicView.text(set: MagicText.() -> Unit) = settingOf(set)
 
-fun MagicView.circle(set: MagicCircleSetting.() -> Unit) = settingOf(set)
+fun MagicView.line(set: MagicLine.() -> Unit) = settingOf(set)
 
-fun MagicView.text(set: MagicTextSetting.() -> Unit) = settingOf(set)
+fun MagicView.rect(set: MagicRect.() -> Unit) = settingOf(set)
 
-fun MagicView.line(set: MagicLineSetting.() -> Unit) = settingOf(set)
+fun MagicView.bitmap(set: MagicBitmap.() -> Unit) = settingOf(set)
 
-fun MagicView.rect(set: MagicRectSetting.() -> Unit) = settingOf(set)
-
-fun MagicView.bitmap(set: MagicBitmapSetting.() -> Unit) = settingOf(set)
-
-fun MagicView.arc(set: MagicArcSetting.() -> Unit) = settingOf(set)
+fun MagicView.arc(set: MagicArc.() -> Unit) = settingOf(set)

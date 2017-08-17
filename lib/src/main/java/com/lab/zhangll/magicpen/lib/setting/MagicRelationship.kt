@@ -1,17 +1,18 @@
 package com.lab.zhangll.magicpen.lib.setting
 
 import android.graphics.PointF
+import com.lab.zhangll.magicpen.lib.shapes.MagicLocation
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape
 
 /**
  * Created by zhangll on 2017/5/22.
  */
-interface MagicRelationship {
+interface MagicRelationship : MagicLocation {
     var start: PointF?
     var end: PointF?
 
-    var width: Float?
-    var height: Float?
+    var width: Float
+    var height: Float
 
     var leftMargin: Float
     var rightMargin: Float
@@ -20,19 +21,19 @@ interface MagicRelationship {
 
     val relations: MutableList<() -> Unit>
 
-    private fun <T : MagicShape> guardParameters(another: MagicSetting<T>) {
+    private fun <T : MagicShape> guardParameters(another: T) {
         if (another.start == null || another.end == null) {
             throw Exception("不允许参照对象为空")
         }
 
-        if (width == null || height == null) {
+        if (width == 0f || height == 0f) {
             throw Exception("宽高不能为空")
         }
     }
 
-    fun reEnd() = PointF(start!!.x + width!!, start!!.y + height!!)
+    fun reEnd() = PointF(start!!.x + width, start!!.y + height)
 
-    fun <T : MagicShape> belowOf(another: MagicSetting<T>) {
+    fun <T : MagicShape> belowOf(another: T) {
         guardParameters(another)
 
         val func = {
@@ -45,12 +46,12 @@ interface MagicRelationship {
         relations.add(func)
     }
 
-    fun <T : MagicShape> aboveOf(another: MagicSetting<T>) {
+    fun <T : MagicShape> aboveOf(another: T) {
         guardParameters(another)
 
         val func = {
             start = PointF(start?.x ?: another.start!!.x,
-                    (if (another.end!!.y > another.start!!.y) another.start!!.y else another.end!!.y) - height!!)
+                    (if (another.end!!.y > another.start!!.y) another.start!!.y else another.end!!.y) - height)
             end = reEnd()
         }
 
@@ -58,7 +59,7 @@ interface MagicRelationship {
         relations.add(func)
     }
 
-    fun <T : MagicShape> rightOf(another: MagicSetting<T>) {
+    fun <T : MagicShape> rightOf(another: T) {
         guardParameters(another)
 
         val func = {
@@ -71,11 +72,11 @@ interface MagicRelationship {
         relations.add(func)
     }
 
-    fun <T : MagicShape> leftOf(another: MagicSetting<T>) {
+    fun <T : MagicShape> leftOf(another: T) {
         guardParameters(another)
 
         val func = {
-            start = PointF((if (another.end!!.x > another.start!!.x) another.start!!.x else another.end!!.x) - width!!,
+            start = PointF((if (another.end!!.x > another.start!!.x) another.start!!.x else another.end!!.x) - width,
                     start?.y ?: another.start!!.y)
             end = reEnd()
         }
@@ -84,12 +85,12 @@ interface MagicRelationship {
         relations.add(func)
     }
 
-    fun <T : MagicShape> centerIn(another: MagicSetting<T>) {
+    fun <T : MagicShape> centerIn(another: T) {
         guardParameters(another)
 
         val func = {
-            start = PointF(another.start!!.x / 2 + another.end!!.x / 2 - width!! / 2,
-                    another.start!!.y / 2 + another.end!!.y / 2 - height!! / 2)
+            start = PointF(another.start!!.x / 2 + another.end!!.x / 2 - width / 2,
+                    another.start!!.y / 2 + another.end!!.y / 2 - height / 2)
             end = reEnd()
         }
 
@@ -97,7 +98,7 @@ interface MagicRelationship {
         relations.add(func)
     }
 
-    fun <T : MagicShape> alignTop(another: MagicSetting<T>) {
+    fun <T : MagicShape> alignTop(another: T) {
         guardParameters(another)
 
         val func = {
@@ -110,12 +111,12 @@ interface MagicRelationship {
         relations.add(func)
     }
 
-    fun <T : MagicShape> alignBottom(another: MagicSetting<T>) {
+    fun <T : MagicShape> alignBottom(another: T) {
         guardParameters(another)
 
         val func = {
             start = PointF(start?.x ?: another.start!!.x,
-                    another.end!!.y - height!!)
+                    another.end!!.y - height)
             end = reEnd()
         }
 
@@ -123,7 +124,7 @@ interface MagicRelationship {
         relations.add(func)
     }
 
-    fun <T : MagicShape> alignLeft(another: MagicSetting<T>) {
+    fun <T : MagicShape> alignLeft(another: T) {
         guardParameters(another)
 
         val func = {
@@ -136,11 +137,11 @@ interface MagicRelationship {
         relations.add(func)
     }
 
-    fun <T : MagicShape> alignRight(another: MagicSetting<T>) {
+    fun <T : MagicShape> alignRight(another: T) {
         guardParameters(another)
 
         val func = {
-            start = PointF(another.end!!.x - width!!,
+            start = PointF(another.end!!.x - width,
                     start?.y ?: another.start!!.y)
             end = reEnd()
         }

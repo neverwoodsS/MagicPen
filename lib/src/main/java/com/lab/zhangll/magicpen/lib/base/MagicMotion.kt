@@ -1,10 +1,13 @@
 package com.lab.zhangll.magicpen.lib.base
 
+import android.animation.ValueAnimator
+import android.view.animation.AccelerateDecelerateInterpolator
+
 /**
  * Created by zhangll on 2017/5/23.
  * Shape 的基本运动
  */
-interface MagicMotion : com.lab.zhangll.magicpen.lib.base.MagicLocation {
+interface MagicMotion : MagicLocation {
 
     fun invalidate()
     fun invalidateDirectly()
@@ -32,9 +35,9 @@ interface MagicMotion : com.lab.zhangll.magicpen.lib.base.MagicLocation {
         val totalY = targetY - top
 
         if (totalX == 0f) {
-            android.animation.ValueAnimator.ofFloat(totalY, 0f).apply {
+            ValueAnimator.ofFloat(totalY, 0f).apply {
                 this.duration = 300
-                this.interpolator = android.view.animation.AccelerateDecelerateInterpolator()
+                this.interpolator = AccelerateDecelerateInterpolator()
 
                 addUpdateListener {
                     val dy = it.animatedValue as Float
@@ -47,9 +50,9 @@ interface MagicMotion : com.lab.zhangll.magicpen.lib.base.MagicLocation {
                 }
             }.start()
         } else {
-            android.animation.ValueAnimator.ofFloat(totalX, 0f).apply {
+            ValueAnimator.ofFloat(totalX, 0f).apply {
                 this.duration = 300
-                this.interpolator = android.view.animation.AccelerateDecelerateInterpolator()
+                this.interpolator = AccelerateDecelerateInterpolator()
 
                 addUpdateListener {
                     val dx = it.animatedValue as Float

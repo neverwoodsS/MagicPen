@@ -29,18 +29,6 @@ fun <T : MagicShape> T.gesture(set: MagicGesture.() -> Unit) {
     this.gesture = MagicGesture().apply { set.invoke(this) }
 }
 
-//fun <T : MagicShape> T.generate(shape: T): T {
-//    val productShape = product(shape)
-//
-//    if (gestureSet != null) {
-//        gesture = MagicGesture()
-//        gestureSet!!.invoke(gesture!!)
-//    }
-//
-//    productShape.gesture = gesture
-//    return productShape
-//}
-
 fun MagicView.circle(set: MagicCircle.() -> Unit) = settingOf(set)
 
 fun MagicView.text(set: MagicText.() -> Unit) = settingOf(set)

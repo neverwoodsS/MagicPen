@@ -6,7 +6,7 @@ import android.graphics.PointF
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.lab.zhangll.magicpen.lib.*
-import com.lab.zhangll.magicpen.lib.shapes.bitmap.MagicBitmap
+import com.lab.zhangll.magicpen.lib.shapes.MagicBitmap
 
 class SlideBarActivity : AppCompatActivity() {
 

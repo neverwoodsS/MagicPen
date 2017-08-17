@@ -1,9 +1,10 @@
-package com.lab.zhangll.magicpen.lib.shapes.circle
+package com.lab.zhangll.magicpen.lib.shapes
 
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.PointF
-import com.lab.zhangll.magicpen.lib.shapes.*
+import com.lab.zhangll.magicpen.lib.base.centerX
+import com.lab.zhangll.magicpen.lib.base.centerY
 
 /**
  * Created by zhangll on 2017/5/20.

@@ -1,4 +1,4 @@
-package com.lab.zhangll.magicpen.lib.shapes.bitmap
+package com.lab.zhangll.magicpen.lib.shapes
 
 import android.graphics.*
 import com.lab.zhangll.magicpen.lib.MagicPen

@@ -1,4 +1,4 @@
-package com.lab.zhangll.magicpen.lib.setting
+package com.lab.zhangll.magicpen.lib.base
 
 /**
  * Created by zhangll on 2017/5/22.

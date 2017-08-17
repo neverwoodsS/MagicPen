@@ -1,17 +1,20 @@
 package com.lab.zhangll.magicpen.lib.shapes
 
-import android.animation.ValueAnimator
 import android.graphics.PointF
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
-import com.lab.zhangll.magicpen.lib.setting.MagicMotion
-import com.lab.zhangll.magicpen.lib.setting.MagicGesture
-import com.lab.zhangll.magicpen.lib.setting.MagicRelationship
+import com.lab.zhangll.magicpen.lib.base.MagicDraw
+import com.lab.zhangll.magicpen.lib.base.MagicMotion
+import com.lab.zhangll.magicpen.lib.base.MagicGesture
+import com.lab.zhangll.magicpen.lib.base.MagicRelationship
 
 /**
  * Created by zhangll on 2017/5/20.
+ * Shape 基类，用于整合多个协议的实现
  */
 abstract class MagicShape : MagicDraw, MagicMotion, MagicRelationship {
+    lateinit var parent: View
+    override val relations: MutableList<() -> Unit> = mutableListOf()
+    open var gesture: MagicGesture? = null
 
     override var left: Float = 0f
     override var top: Float = 0f
@@ -83,83 +86,7 @@ abstract class MagicShape : MagicDraw, MagicMotion, MagicRelationship {
             relations.add(func)
         }
 
-    lateinit var parent: View
-    open var gesture: MagicGesture? = null
-    override val relations: MutableList<() -> Unit> = mutableListOf()
-
     abstract fun containPoint(x: Float, y: Float): Boolean
-
-    override fun moveBy(x: Float, y: Float) {
-        left = start!!.x + x
-        top = start!!.y + y
-        right = end!!.x + x
-        bottom = end!!.y + y
-
-        parent.invalidate()
-    }
-
-    override fun moveToOrigin() {
-        left = start!!.x
-        top = start!!.y
-        right = end!!.x
-        bottom = end!!.y
-
-        parent.invalidate()
-    }
-
-    override fun smoothMoveTo(targetX: Float, targetY: Float) {
-        val totalX = targetX - left
-        val totalY = targetY - top
-
-        if (totalX == 0f) {
-            ValueAnimator.ofFloat(totalY, 0f).apply {
-                this.duration = 300
-                this.interpolator = AccelerateDecelerateInterpolator()
-
-                addUpdateListener {
-                    val dy = it.animatedValue as Float
-                    val height = bottom - top
-
-                    top = targetY - dy
-                    bottom = targetY + height - dy
-
-                    parent.invalidate()
-                }
-            }.start()
-        } else {
-            ValueAnimator.ofFloat(totalX, 0f).apply {
-                this.duration = 300
-                this.interpolator = AccelerateDecelerateInterpolator()
-
-                addUpdateListener {
-                    val dx = it.animatedValue as Float
-                    val dy = dx * totalY / totalX
-                    val width = right - left
-                    val height = bottom - top
-
-                    left = targetX -  dx
-                    right = targetX + width - dx
-                    top = targetY - dy
-                    bottom = targetY + height - dy
-
-                    parent.invalidate()
-                }
-            }.start()
-        }
-
-        start!!.x = targetX
-        start!!.y = targetY
-        end!!.x = start!!.x + width
-        end!!.y = start!!.y + height
-    }
-
-    override fun smoothMoveCenterTo(targetX: Float, targetY: Float) {
-        smoothMoveTo(targetX - width / 2, targetY - height / 2)
-    }
-
-    override fun smoothMoveToOrigin() {
-        smoothMoveTo(start!!.x, start!!.y)
-    }
 
     fun containInRect(x: Float, y: Float): Boolean {
         return x in left..right
@@ -175,6 +102,10 @@ abstract class MagicShape : MagicDraw, MagicMotion, MagicRelationship {
 
     override fun invalidate() {
         relations.forEach { it.invoke() }
+        parent.invalidate()
+    }
+
+    override fun invalidateDirectly() {
         parent.invalidate()
     }
 }

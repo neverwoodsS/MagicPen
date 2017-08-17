@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import com.lab.zhangll.magicpen.lib.*
 import com.lab.zhangll.magicpen.lib.paint.paint
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape
-import com.lab.zhangll.magicpen.lib.shapes.centerX
-import com.lab.zhangll.magicpen.lib.shapes.text.MagicText
+import com.lab.zhangll.magicpen.lib.base.centerX
+import com.lab.zhangll.magicpen.lib.shapes.MagicText
 
 /**
  * Created by zhangll on 2017/7/21.

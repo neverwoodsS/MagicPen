@@ -1,18 +1,14 @@
-package com.lab.zhangll.magicpen.lib.setting
+package com.lab.zhangll.magicpen.lib.base
 
 import android.graphics.PointF
-import com.lab.zhangll.magicpen.lib.shapes.MagicLocation
+import com.lab.zhangll.magicpen.lib.base.MagicLocation
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape
 
 /**
  * Created by zhangll on 2017/5/22.
+ * Shape 之间相对位置关系的运算及状态保留（即刷新后不会失效）
  */
-interface MagicRelationship : MagicLocation {
-    var start: PointF?
-    var end: PointF?
-
-    var width: Float
-    var height: Float
+interface MagicRelationship : com.lab.zhangll.magicpen.lib.base.MagicLocation {
 
     var leftMargin: Float
     var rightMargin: Float
@@ -21,7 +17,7 @@ interface MagicRelationship : MagicLocation {
 
     val relations: MutableList<() -> Unit>
 
-    private fun <T : MagicShape> guardParameters(another: T) {
+    private fun <T : com.lab.zhangll.magicpen.lib.shapes.MagicShape> guardParameters(another: T) {
         if (another.start == null || another.end == null) {
             throw Exception("不允许参照对象为空")
         }
@@ -31,14 +27,14 @@ interface MagicRelationship : MagicLocation {
         }
     }
 
-    fun reEnd() = PointF(start!!.x + width, start!!.y + height)
+    fun reEnd() = android.graphics.PointF(start!!.x + width, start!!.y + height)
 
-    fun <T : MagicShape> belowOf(another: T) {
+    fun <T : com.lab.zhangll.magicpen.lib.shapes.MagicShape> belowOf(another: T) {
         guardParameters(another)
 
         val func = {
-            start = PointF(start?.x ?: another.start!!.x,
-                if (another.end!!.y > another.start!!.y) another.end!!.y else another.start!!.y)
+            start = android.graphics.PointF(start?.x ?: another.start!!.x,
+                    if (another.end!!.y > another.start!!.y) another.end!!.y else another.start!!.y)
             end = reEnd()
         }
 
@@ -46,11 +42,11 @@ interface MagicRelationship : MagicLocation {
         relations.add(func)
     }
 
-    fun <T : MagicShape> aboveOf(another: T) {
+    fun <T : com.lab.zhangll.magicpen.lib.shapes.MagicShape> aboveOf(another: T) {
         guardParameters(another)
 
         val func = {
-            start = PointF(start?.x ?: another.start!!.x,
+            start = android.graphics.PointF(start?.x ?: another.start!!.x,
                     (if (another.end!!.y > another.start!!.y) another.start!!.y else another.end!!.y) - height)
             end = reEnd()
         }
@@ -59,11 +55,11 @@ interface MagicRelationship : MagicLocation {
         relations.add(func)
     }
 
-    fun <T : MagicShape> rightOf(another: T) {
+    fun <T : com.lab.zhangll.magicpen.lib.shapes.MagicShape> rightOf(another: T) {
         guardParameters(another)
 
         val func = {
-            start = PointF(if (another.end!!.x > another.start!!.x) another.end!!.x else another.start!!.x,
+            start = android.graphics.PointF(if (another.end!!.x > another.start!!.x) another.end!!.x else another.start!!.x,
                     start?.y ?: another.start!!.y)
             end = reEnd()
         }
@@ -72,11 +68,11 @@ interface MagicRelationship : MagicLocation {
         relations.add(func)
     }
 
-    fun <T : MagicShape> leftOf(another: T) {
+    fun <T : com.lab.zhangll.magicpen.lib.shapes.MagicShape> leftOf(another: T) {
         guardParameters(another)
 
         val func = {
-            start = PointF((if (another.end!!.x > another.start!!.x) another.start!!.x else another.end!!.x) - width,
+            start = android.graphics.PointF((if (another.end!!.x > another.start!!.x) another.start!!.x else another.end!!.x) - width,
                     start?.y ?: another.start!!.y)
             end = reEnd()
         }
@@ -85,11 +81,11 @@ interface MagicRelationship : MagicLocation {
         relations.add(func)
     }
 
-    fun <T : MagicShape> centerIn(another: T) {
+    fun <T : com.lab.zhangll.magicpen.lib.shapes.MagicShape> centerIn(another: T) {
         guardParameters(another)
 
         val func = {
-            start = PointF(another.start!!.x / 2 + another.end!!.x / 2 - width / 2,
+            start = android.graphics.PointF(another.start!!.x / 2 + another.end!!.x / 2 - width / 2,
                     another.start!!.y / 2 + another.end!!.y / 2 - height / 2)
             end = reEnd()
         }
@@ -98,11 +94,11 @@ interface MagicRelationship : MagicLocation {
         relations.add(func)
     }
 
-    fun <T : MagicShape> alignTop(another: T) {
+    fun <T : com.lab.zhangll.magicpen.lib.shapes.MagicShape> alignTop(another: T) {
         guardParameters(another)
 
         val func = {
-            start = PointF(start?.x ?: another.start!!.x,
+            start = android.graphics.PointF(start?.x ?: another.start!!.x,
                     another.start!!.y)
             end = reEnd()
         }
@@ -111,11 +107,11 @@ interface MagicRelationship : MagicLocation {
         relations.add(func)
     }
 
-    fun <T : MagicShape> alignBottom(another: T) {
+    fun <T : com.lab.zhangll.magicpen.lib.shapes.MagicShape> alignBottom(another: T) {
         guardParameters(another)
 
         val func = {
-            start = PointF(start?.x ?: another.start!!.x,
+            start = android.graphics.PointF(start?.x ?: another.start!!.x,
                     another.end!!.y - height)
             end = reEnd()
         }
@@ -124,11 +120,11 @@ interface MagicRelationship : MagicLocation {
         relations.add(func)
     }
 
-    fun <T : MagicShape> alignLeft(another: T) {
+    fun <T : com.lab.zhangll.magicpen.lib.shapes.MagicShape> alignLeft(another: T) {
         guardParameters(another)
 
         val func = {
-            start = PointF(another.start!!.x,
+            start = android.graphics.PointF(another.start!!.x,
                     start?.y ?: another.start!!.y)
             end = reEnd()
         }
@@ -137,11 +133,11 @@ interface MagicRelationship : MagicLocation {
         relations.add(func)
     }
 
-    fun <T : MagicShape> alignRight(another: T) {
+    fun <T : com.lab.zhangll.magicpen.lib.shapes.MagicShape> alignRight(another: T) {
         guardParameters(another)
 
         val func = {
-            start = PointF(another.end!!.x - width,
+            start = android.graphics.PointF(another.end!!.x - width,
                     start?.y ?: another.start!!.y)
             end = reEnd()
         }

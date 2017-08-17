@@ -8,7 +8,7 @@ import com.lab.zhangll.magicpen.lib.arc
 import com.lab.zhangll.magicpen.lib.magicPen
 import com.lab.zhangll.magicpen.lib.paint.paint
 import com.lab.zhangll.magicpen.lib.paint.shader.sweepGradient
-import com.lab.zhangll.magicpen.lib.shapes.arc.MagicArc
+import com.lab.zhangll.magicpen.lib.shapes.MagicArc
 
 class ArcActivity : AppCompatActivity() {
 

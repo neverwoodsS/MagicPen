@@ -1,14 +1,14 @@
 package com.lab.zhangll.magicpen.lib
 
 import android.content.Context
-import com.lab.zhangll.magicpen.lib.setting.MagicGesture
+import com.lab.zhangll.magicpen.lib.base.MagicGesture
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape
-import com.lab.zhangll.magicpen.lib.shapes.arc.MagicArc
-import com.lab.zhangll.magicpen.lib.shapes.bitmap.MagicBitmap
-import com.lab.zhangll.magicpen.lib.shapes.circle.MagicCircle
-import com.lab.zhangll.magicpen.lib.shapes.line.MagicLine
-import com.lab.zhangll.magicpen.lib.shapes.rect.MagicRect
-import com.lab.zhangll.magicpen.lib.shapes.text.MagicText
+import com.lab.zhangll.magicpen.lib.shapes.MagicArc
+import com.lab.zhangll.magicpen.lib.shapes.MagicBitmap
+import com.lab.zhangll.magicpen.lib.shapes.MagicCircle
+import com.lab.zhangll.magicpen.lib.shapes.MagicLine
+import com.lab.zhangll.magicpen.lib.shapes.MagicRect
+import com.lab.zhangll.magicpen.lib.shapes.MagicText
 
 /**
  * Created by zhangll on 2017/5/20.

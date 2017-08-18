@@ -18,10 +18,10 @@ interface IMagicLocation {
     var bottom: Float
 }
 
-var MagicLocation.centerX
+var IMagicLocation.centerX
     get() = (left + right) / 2
     private set(value) {}
 
-var MagicLocation.centerY
+var IMagicLocation.centerY
     get() = (top + bottom) / 2
     private set(value) {}

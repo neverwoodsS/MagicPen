@@ -8,7 +8,7 @@ import android.graphics.PointF
  * start、end 用于描述 Shape 应在位置
  * left、top、right、bottom 用于描述实际绘制位置
  */
-abstract class MagicLocationImpl : MagicLocation {
+abstract class MagicLocationImpl : MagicRelationship() {
     override var start: PointF? = null
         set(value) {
             field = value

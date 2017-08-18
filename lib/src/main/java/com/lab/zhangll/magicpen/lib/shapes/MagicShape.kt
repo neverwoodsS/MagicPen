@@ -1,17 +1,13 @@
 package com.lab.zhangll.magicpen.lib.shapes
 
-import android.graphics.PointF
 import android.view.View
-import com.lab.zhangll.magicpen.lib.base.MagicDraw
-import com.lab.zhangll.magicpen.lib.base.MagicMotion
-import com.lab.zhangll.magicpen.lib.base.MagicGesture
-import com.lab.zhangll.magicpen.lib.base.MagicRelationship
+import com.lab.zhangll.magicpen.lib.base.*
 
 /**
  * Created by zhangll on 2017/5/20.
  * Shape 基类，用于整合多个协议的实现
  */
-abstract class MagicShape : MagicRelationship(), MagicDraw, MagicMotion {
+abstract class MagicShape : MagicLocationImpl(), MagicDraw, MagicMotion {
     lateinit var parent: View
     open var gesture: MagicGesture? = null
 

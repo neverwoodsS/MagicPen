@@ -11,13 +11,6 @@ abstract class MagicShape : MagicLocationImpl(), MagicDraw, MagicMotion {
     lateinit var parent: View
     open var gesture: MagicGesture? = null
 
-    abstract fun containPoint(x: Float, y: Float): Boolean
-
-    fun containInRect(x: Float, y: Float): Boolean {
-        return x in left..right
-                && y in top..bottom
-    }
-
     open fun reBounds() {
         left = start?.x ?: 0f
         top = start?.y ?: 0f

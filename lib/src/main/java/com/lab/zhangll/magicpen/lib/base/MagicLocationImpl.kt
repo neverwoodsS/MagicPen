@@ -29,4 +29,7 @@ abstract class MagicLocationImpl : MagicRelationship() {
     override var top = 0f
     override var right = 0f
     override var bottom = 0f
+
+    abstract fun containPoint(x: Float, y: Float): Boolean
+    fun containInRect(x: Float, y: Float) = x in left..right && y in top..bottom
 }

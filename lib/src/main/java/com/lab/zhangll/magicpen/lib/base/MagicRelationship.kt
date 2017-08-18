@@ -7,14 +7,57 @@ import com.lab.zhangll.magicpen.lib.shapes.MagicShape
  * Created by zhangll on 2017/5/22.
  * Shape 之间相对位置关系的运算及状态保留（即刷新后不会失效）
  */
-interface MagicRelationship : MagicLocation {
+abstract class MagicRelationship : MagicLocationImpl() {
 
-    var leftMargin: Float
-    var rightMargin: Float
-    var topMargin: Float
-    var bottomMargin: Float
+    var leftMargin = 0f
+        set(value) {
+            field = value
+            val func = {
+                start = PointF((start?.x ?: 0f) + value,
+                        start?.y ?: 0f)
+                end = reEnd()
+            }
+            func.invoke()
+            relations.add(func)
+        }
 
-    val relations: MutableList<() -> Unit>
+    var rightMargin = 0f
+        set(value) {
+            field = value
+            val func = {
+                start = PointF((start?.x ?: 0f) - value,
+                        start?.y ?: 0f)
+                end = reEnd()
+            }
+            func.invoke()
+            relations.add(func)
+        }
+
+    var topMargin = 0f
+        set(value) {
+            field = value
+            val func = {
+                start = PointF(start?.x ?: 0f,
+                        (start?.y ?: 0f) + value)
+                end = reEnd()
+            }
+            func.invoke()
+            relations.add(func)
+        }
+
+    var bottomMargin = 0f
+        set(value) {
+            field = value
+            val func = {
+                start = PointF(start?.x ?: 0f,
+                        (start?.y ?: 0f) - value)
+                end = reEnd()
+            }
+            func.invoke()
+            relations.add(func)
+        }
+
+    val relations: MutableList<() -> Unit> = mutableListOf()
 
     private fun <T : MagicShape> guardParameters(another: T) {
         if (another.start == null || another.end == null) {

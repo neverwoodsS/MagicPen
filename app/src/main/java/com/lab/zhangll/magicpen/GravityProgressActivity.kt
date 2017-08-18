@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v7.app.AppCompatActivity
 import com.lab.zhangll.magicpen.lib.*
+import com.lab.zhangll.magicpen.lib.base.centerX
 import com.lab.zhangll.magicpen.lib.paint.paint
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape
-import com.lab.zhangll.magicpen.lib.base.centerX
 import com.lab.zhangll.magicpen.lib.shapes.MagicText
 
 /**
@@ -88,10 +88,7 @@ class GravityProgressActivity : AppCompatActivity() {
         }
     }
 
-
-
     class Tag : MagicShape() {
-
         override var paint = Paint().apply { style = Paint.Style.STROKE }
 
         override fun drawOn(canvas: Canvas?) {

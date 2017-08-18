@@ -3,10 +3,7 @@ package com.lab.zhangll.magicpen.lib.base
 import android.graphics.PointF
 
 /**
- * Created by zhangll on 2017/5/20.
- * 描述 Shape 位置相关属性
- * start、end 用于描述 Shape 应在位置
- * left、top、right、bottom 用于描述实际绘制位置
+ * Created by zhangll on 2017/8/18.
  */
 interface MagicLocation {
     var start: PointF?

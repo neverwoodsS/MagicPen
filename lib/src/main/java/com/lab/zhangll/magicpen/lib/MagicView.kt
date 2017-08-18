@@ -2,7 +2,6 @@ package com.lab.zhangll.magicpen.lib
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Point
 import android.graphics.PointF
 import android.view.MotionEvent
 import android.view.View
@@ -56,10 +55,10 @@ class MagicView(context: Context) : View(context) {
         shapes.add(shape)
         shape.parent = this
     }
-}
 
-fun PointF.distanceTo(another: PointF): Float {
-    val temp = (x - another.x) * (x - another.x) +
-            (y - another.y) * (y - another.y)
-    return Math.sqrt(temp.toDouble()).toFloat()
+    fun PointF.distanceTo(another: PointF): Float {
+        val temp = (x - another.x) * (x - another.x) +
+                (y - another.y) * (y - another.y)
+        return Math.sqrt(temp.toDouble()).toFloat()
+    }
 }

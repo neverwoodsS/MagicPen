@@ -7,7 +7,7 @@ import com.lab.zhangll.magicpen.lib.base.*
  * Created by zhangll on 2017/5/20.
  * Shape 基类，用于整合多个协议的实现
  */
-abstract class MagicShape : MagicLocationImpl(), MagicDraw, MagicMotion {
+abstract class MagicShape : MagicLocation(), MagicDraw, MagicMotion {
     lateinit var parent: View
     open var gesture: MagicGesture? = null
 

@@ -7,7 +7,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
  * Created by zhangll on 2017/5/23.
  * Shape 的基本运动
  */
-interface MagicMotion : MagicLocation {
+interface MagicMotion : IMagicLocation {
     fun invalidate()
     fun invalidateDirectly()
 

@@ -7,7 +7,7 @@ import com.lab.zhangll.magicpen.lib.shapes.MagicShape
  * Created by zhangll on 2017/5/22.
  * Shape 之间相对位置关系的运算及状态保留（即刷新后不会失效）
  */
-abstract class MagicRelationship : MagicLocation {
+abstract class MagicRelationship : IMagicLocation {
     var leftMargin = 0f
         set(value) {
             field = value

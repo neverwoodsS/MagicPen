@@ -18,7 +18,6 @@ fun Context.magicPen(set: MagicView.() -> Unit) = MagicView(this).apply { set() 
 inline fun <reified T : MagicShape> MagicView.settingOf(set: T.() -> Unit): T {
     val shapeClazz = T::class.java
     val shape = shapeClazz.getConstructor().newInstance()
-    shape.parent = this
     shape.set()
 
     addShape(shape)

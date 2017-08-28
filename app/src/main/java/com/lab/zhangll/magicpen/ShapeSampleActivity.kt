@@ -120,7 +120,6 @@ class ShapeSampleActivity : AppCompatActivity() {
                 }
             }
         }
-
         return bmp!!
     }
 
@@ -133,10 +132,12 @@ class ShapeSampleActivity : AppCompatActivity() {
                     paint {
                         color = resources.getColor(R.color.abc_color_highlight_material)
                     }
+                    gesture {
+                        onDragBy = { x, y -> moveBy(x, y) }
+                    }
                 }
             }
         }
-
         return circle!!
     }
 

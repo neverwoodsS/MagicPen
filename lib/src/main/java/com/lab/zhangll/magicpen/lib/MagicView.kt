@@ -11,8 +11,9 @@ import com.lab.zhangll.magicpen.lib.shapes.MagicShape
  * Created by zhangll on 2017/5/20.
  */
 class MagicView(context: Context) : View(context) {
+    // shape集合，让每一个shape自身调用onDraw方法去绘制自己
     private val shapes: MutableList<MagicShape> = mutableListOf()
-
+    // 手指按下触摸到的Shape
     var touchDownShapes: List<MagicShape> = mutableListOf()
 
     var downPoint = PointF(0f, 0f)
@@ -23,6 +24,10 @@ class MagicView(context: Context) : View(context) {
         shapes.forEach { it.drawOn(canvas) }
     }
 
+    /**
+     * 复写触摸事件，通过{@link MagicShape}的containPoint方法
+     * 来判断被点击的shapes。
+     */
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when(event?.action) {
             MotionEvent.ACTION_DOWN -> {

@@ -3,6 +3,7 @@ package com.lab.zhangll.magicpen.lib
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.PointF
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape
@@ -29,7 +30,7 @@ class MagicView(context: Context) : View(context) {
      * 来判断被点击的shapes。
      */
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        when(event?.action) {
+        when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 downPoint = PointF(event.x, event.y)
                 touchDownShapes = shapes.filter { it.containPoint(event.x, event.y) }
@@ -57,6 +58,63 @@ class MagicView(context: Context) : View(context) {
         return true
     }
 
+    /**
+     * 主要是处理wrap_content的情况
+     */
+    // TODO: 无法正确的测量圆的宽高，一系列不设置start end的都无法正确测量
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
+        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+        var width = 0
+        var height = 0
+        // 处理宽度
+        if (widthMode == MeasureSpec.EXACTLY) {
+            // 指定数值宽度或者match_parent
+            width = MeasureSpec.getSize(widthMeasureSpec)
+        } else if (widthMode == MeasureSpec.AT_MOST) {
+            // 一般为wrap_content
+            var leftX = Integer.MAX_VALUE
+            var rightX = -1
+            shapes.forEach {
+                if (leftX > it.start.y.min(it.end.y)) {
+                    leftX = it.start.y.min(it.end.y).toInt()
+                }
+
+                if (rightX < it.start.y.max(it.end.y)) {
+                    rightX = it.start.y.max(it.end.y).toInt()
+                }
+            }
+            width = rightX
+//            - leftX
+        }
+
+        // 处理高度
+        if (heightMode == MeasureSpec.EXACTLY) {
+            // 指定高度或者match_parent
+            height = MeasureSpec.getSize(heightMeasureSpec)
+        } else if (heightMode == MeasureSpec.AT_MOST) {
+            // 一般为wrap_content
+            var topY = Integer.MAX_VALUE
+            var bottomY = -1
+            shapes.forEach {
+                if (topY > it.start.y.min(it.end.y)) {
+                    topY = it.start.y.min(it.end.y).toInt()
+                }
+
+                if (bottomY < it.start.y.max(it.end.y)) {
+                    bottomY = it.start.y.max(it.end.y).toInt()
+                }
+            }
+
+            height = bottomY
+//            - topY
+        }
+
+        Log.i("MagicView", "height = $height width = $width")
+        setMeasuredDimension(width, height)
+
+    }
+
     fun addShape(shape: MagicShape) {
         shapes.add(shape)
         shape.parent = this
@@ -67,4 +125,14 @@ fun PointF.distanceTo(another: PointF): Float {
     val temp = (x - another.x) * (x - another.x) +
             (y - another.y) * (y - another.y)
     return Math.sqrt(temp.toDouble()).toFloat()
+}
+
+fun Float.min(another: Float): Float {
+    if (another < this) return another
+    return this
+}
+
+fun Float.max(another: Float): Float {
+    if (another > this) return another
+    return this
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
 import android.widget.ListView
 import com.lab.zhangll.magicpen.adapter.EntryListAdapter
@@ -72,15 +73,15 @@ class ShapeSampleActivity : AppCompatActivity() {
         if (rect == null) {
             rect = magicPen {
                 rect {
-                    width = 100f
-                    height = 100f
+//                    width = 100f
+//                    height = 100f
                     setBackgroundColor(resources.getColor(android.R.color.holo_red_dark))
                     start = PointF(0f, 0f)
                     end = PointF(100f, 100f)
                 }
 
             }
-            val params = ViewGroup.LayoutParams(100, 100)
+            val params = ViewGroup.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
             rect!!.layoutParams = params
         }
 
@@ -115,11 +116,12 @@ class ShapeSampleActivity : AppCompatActivity() {
             bmp = magicPen {
                 bitmap {
                     start = PointF(0f, 0f)
-                    end = PointF(0f, 0f)
+                    end = PointF(300f, 300f)
                     src = R.mipmap.ic_launcher_round
                 }
             }
         }
+
         return bmp!!
     }
 
@@ -162,7 +164,6 @@ class ShapeSampleActivity : AppCompatActivity() {
                 line {
                     start = PointF(100f, 100f)
                     end = PointF(200f, 200f)
-                    width = 100f
                     paint = Paint().apply { strokeWidth = 10f }
                 }
             }

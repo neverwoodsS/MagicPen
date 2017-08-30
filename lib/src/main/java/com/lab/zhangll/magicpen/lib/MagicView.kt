@@ -21,7 +21,6 @@ class MagicView(context: Context) : View(context) {
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        // let shape draw itself
         shapes.forEach { it.drawOn(canvas) }
     }
 
@@ -30,7 +29,7 @@ class MagicView(context: Context) : View(context) {
      * 来判断被点击的shapes。
      */
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        when (event?.action) {
+        when(event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 downPoint = PointF(event.x, event.y)
                 touchDownShapes = shapes.filter { it.containPoint(event.x, event.y) }
@@ -71,21 +70,18 @@ class MagicView(context: Context) : View(context) {
         if (widthMode == MeasureSpec.EXACTLY) {
             // 指定数值宽度或者match_parent
             width = MeasureSpec.getSize(widthMeasureSpec)
+            Log.i("MagicView","width = $width")
         } else if (widthMode == MeasureSpec.AT_MOST) {
             // 一般为wrap_content
-            var leftX = Integer.MAX_VALUE
             var rightX = -1
             shapes.forEach {
-                if (leftX > it.start.y.min(it.end.y)) {
-                    leftX = it.start.y.min(it.end.y).toInt()
+                if (rightX < it.start!!.y.max(it.end!!.y)) {
+                    rightX = it.start!!.y.max(it.end!!.y).toInt()
                 }
-
-                if (rightX < it.start.y.max(it.end.y)) {
-                    rightX = it.start.y.max(it.end.y).toInt()
-                }
+                Log.i("MagicView", "width start: " + it.start.toString() +
+                        " end: " + it.end.toString())
             }
             width = rightX
-//            - leftX
         }
 
         // 处理高度
@@ -94,42 +90,36 @@ class MagicView(context: Context) : View(context) {
             height = MeasureSpec.getSize(heightMeasureSpec)
         } else if (heightMode == MeasureSpec.AT_MOST) {
             // 一般为wrap_content
-            var topY = Integer.MAX_VALUE
             var bottomY = -1
             shapes.forEach {
-                if (topY > it.start.y.min(it.end.y)) {
-                    topY = it.start.y.min(it.end.y).toInt()
+                if (bottomY < it.start!!.y.max(it.end!!.y)) {
+                    bottomY = it.start!!.y.max(it.end!!.y).toInt()
                 }
 
-                if (bottomY < it.start.y.max(it.end.y)) {
-                    bottomY = it.start.y.max(it.end.y).toInt()
-                }
+                Log.i("MagicView", "height start: " + it.start.toString() +
+                        " end: " + it.end.toString())
             }
 
             height = bottomY
-//            - topY
         }
 
         Log.i("MagicView", "height = $height width = $width")
         setMeasuredDimension(width, height)
+        shapes.forEach {
 
+        }
     }
 
     fun addShape(shape: MagicShape) {
         shapes.add(shape)
         shape.parent = this
     }
-}
 
-fun PointF.distanceTo(another: PointF): Float {
-    val temp = (x - another.x) * (x - another.x) +
-            (y - another.y) * (y - another.y)
-    return Math.sqrt(temp.toDouble()).toFloat()
-}
-
-fun Float.min(another: Float): Float {
-    if (another < this) return another
-    return this
+    fun PointF.distanceTo(another: PointF): Float {
+        val temp = (x - another.x) * (x - another.x) +
+                (y - another.y) * (y - another.y)
+        return Math.sqrt(temp.toDouble()).toFloat()
+    }
 }
 
 fun Float.max(another: Float): Float {

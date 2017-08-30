@@ -1,9 +1,7 @@
-package com.lab.zhangll.magicpen.lib.shapes.line
+package com.lab.zhangll.magicpen.lib.shapes
 
 import android.graphics.Canvas
 import android.graphics.Paint
-import com.lab.zhangll.magicpen.lib.setting.MagicGesture
-import com.lab.zhangll.magicpen.lib.shapes.MagicShape
 
 /**
  * Created by zhangll on 2017/5/22.

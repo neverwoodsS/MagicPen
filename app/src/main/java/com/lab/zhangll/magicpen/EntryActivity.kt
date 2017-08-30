@@ -28,13 +28,14 @@ class EntryActivity : AppCompatActivity() {
         adapter!!.setData(dataList!!)
 
         lv_list!!.setOnItemClickListener {
-            _, _, pos, _ ->
-            when (pos) {
+            p, v, pos, id ->
+            when(pos){
                 0 -> start<GravityProgressActivity>()
                 1 -> start<SlideBarActivity>()
                 2 -> start<ArcActivity>()
                 3 -> start<MainActivity>()
                 4 -> start<ShapeSampleActivity>()
+                5 -> start<ChartActivity>()
             }
         }
     }

@@ -73,11 +73,13 @@ class ShapeSampleActivity : AppCompatActivity() {
         if (rect == null) {
             rect = magicPen {
                 rect {
-//                    width = 100f
-//                    height = 100f
                     setBackgroundColor(resources.getColor(android.R.color.holo_red_dark))
                     start = PointF(0f, 0f)
                     end = PointF(100f, 100f)
+
+                    gesture {
+                        onDragBy = { x, y -> moveBy(x, y) }
+                    }
                 }
 
             }

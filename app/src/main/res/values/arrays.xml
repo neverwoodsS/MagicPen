@@ -6,6 +6,7 @@
         <item>Arc</item>
         <item>SimpleSample</item>
         <item>ShapeSample</item>
+        <item>Chart</item>
     </array>
 
     <array name="shape">

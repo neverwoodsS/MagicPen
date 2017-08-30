@@ -1,4 +1,4 @@
-package com.lab.zhangll.magicpen.lib.shapes
+package com.lab.zhangll.magicpen.lib.base
 
 import android.graphics.Canvas
 import android.graphics.Paint

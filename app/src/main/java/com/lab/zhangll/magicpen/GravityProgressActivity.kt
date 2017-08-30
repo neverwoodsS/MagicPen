@@ -5,11 +5,10 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v7.app.AppCompatActivity
 import com.lab.zhangll.magicpen.lib.*
+import com.lab.zhangll.magicpen.lib.base.centerX
 import com.lab.zhangll.magicpen.lib.paint.paint
-import com.lab.zhangll.magicpen.lib.setting.MagicSetting
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape
-import com.lab.zhangll.magicpen.lib.shapes.text.MagicTextSetting
-import com.lab.zhangll.magicpen.lib.shapes.width
+import com.lab.zhangll.magicpen.lib.shapes.MagicText
 
 /**
  * Created by zhangll on 2017/7/21.
@@ -18,12 +17,12 @@ class GravityProgressActivity : AppCompatActivity() {
 
     val tagWidth = 100f
     val tagHeight = 60f
-    var text: MagicTextSetting? = null
+    var text: MagicText? = null
     val formula = computeFormula(800f, 30f)
 
     var dragPoint = PointF(100f, 200f)
 
-    var settings = mutableListOf<MagicSetting<out MagicShape>>()
+    var shapes = mutableListOf<MagicShape>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +58,7 @@ class GravityProgressActivity : AppCompatActivity() {
                         content = "90%"
                         paint = Paint().apply { textSize = 40f }
                         centerIn(tag)
-                    }.wait() as MagicTextSetting
+                    }.wait()
                 }
         )
 
@@ -82,16 +81,14 @@ class GravityProgressActivity : AppCompatActivity() {
             text?.content = "${((dragPoint.x - 100) / 800f * 100).toInt()}%"
 
             println("dragPoint: ${dragPoint.x}, ${dragPoint.y}")
-            settings.forEach { it.invalidate() }
+            shapes.forEach {
+                it.reBounds()
+                it.invalidate()
+            }
         }
     }
 
-
-
     class Tag : MagicShape() {
-
-        var center: PointF? = null
-
         override var paint = Paint().apply { style = Paint.Style.STROKE }
 
         override fun drawOn(canvas: Canvas?) {
@@ -100,7 +97,7 @@ class GravityProgressActivity : AppCompatActivity() {
                 lineTo(right, top)
                 lineTo(right, bottom)
                 lineTo(right - width / 3, bottom)
-                lineTo(center!!.x, bottom + width / 6)
+                lineTo(centerX, bottom + width / 6)
                 lineTo(left + width / 3, bottom)
                 lineTo(left, bottom)
                 lineTo(left, top)
@@ -110,35 +107,10 @@ class GravityProgressActivity : AppCompatActivity() {
         override fun containPoint(x: Float, y: Float) = containInRect(x, y)
     }
 
-    class TagSetting(tag: Tag) : MagicSetting<Tag>(tag) {
+    fun MagicView.tag(set: Tag.() -> Unit) = settingOf(set)
 
-        var center: PointF? = null
-
-        override fun product(shape: Tag): Tag {
-            if (center != null && width != null && height != null) {
-                start = PointF(center!!.x - width!! / 2, center!!.y - height!! / 2)
-                end = PointF(center!!.x + width!! / 2, center!!.y + height!! / 2)
-            }
-
-            if (start != null && end != null) {
-                shape.center = PointF(start!!.x / 2 + end!!.x / 2,  start!!.y / 2 + end!!.y / 2)
-                shape.left = start!!.x
-                shape.top = start!!.y
-                shape.right = end!!.x
-                shape.bottom = end!!.y
-            } else {
-                throw Exception("条件不充足")
-            }
-
-
-            return shape
-        }
-    }
-
-    fun MagicView.tag(set: TagSetting.() -> Unit) = settingOf(set)
-
-    fun <T : MagicShape> MagicSetting<T>.wait(): MagicSetting<T> {
-        settings.add(this)
+    fun <T : MagicShape> T.wait(): T {
+        shapes.add(this)
         return this
     }
 }

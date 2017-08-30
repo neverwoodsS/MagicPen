@@ -6,7 +6,7 @@ import android.graphics.PointF
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.lab.zhangll.magicpen.lib.*
-import com.lab.zhangll.magicpen.lib.shapes.bitmap.MagicBitmapSetting
+import com.lab.zhangll.magicpen.lib.shapes.MagicBitmap
 
 class SlideBarActivity : AppCompatActivity() {
 
@@ -17,7 +17,7 @@ class SlideBarActivity : AppCompatActivity() {
     val centerY = 200f // 中心 Y
     val grayPaint = Paint().apply { color = Color.parseColor("#ebebeb") }
 
-    lateinit var button: MagicBitmapSetting
+    lateinit var button: MagicBitmap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

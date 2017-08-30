@@ -153,6 +153,7 @@ class ShapeSampleActivity : AppCompatActivity() {
                     center = PointF(100f, 100f)
                     width = 100f
                     height = 100f
+                    centerInParent = true
                     paint = Paint().apply { textSize = 40f }
                 }
             }
@@ -164,6 +165,7 @@ class ShapeSampleActivity : AppCompatActivity() {
         if (line == null) {
             line = magicPen {
                 line {
+                    centerInParent = true
                     start = PointF(100f, 100f)
                     end = PointF(200f, 200f)
                     paint = Paint().apply { strokeWidth = 10f }

@@ -29,7 +29,7 @@ class MagicView(context: Context) : View(context) {
      * 来判断被点击的shapes。
      */
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        when(event?.action) {
+        when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 downPoint = PointF(event.x, event.y)
                 touchDownShapes = shapes.filter { it.containPoint(event.x, event.y) }
@@ -70,7 +70,7 @@ class MagicView(context: Context) : View(context) {
         if (widthMode == MeasureSpec.EXACTLY) {
             // 指定数值宽度或者match_parent
             width = MeasureSpec.getSize(widthMeasureSpec)
-            Log.i("MagicView","width = $width")
+            Log.i("MagicView", "width = $width")
         } else if (widthMode == MeasureSpec.AT_MOST) {
             // 一般为wrap_content
             var rightX = -1
@@ -104,10 +104,21 @@ class MagicView(context: Context) : View(context) {
         }
 
         Log.i("MagicView", "height = $height width = $width")
-        setMeasuredDimension(width, height)
+        val centerX = width / 2.0
+        val centerY = height / 2.0
         shapes.forEach {
+            if (it.centerInParent) {
+                it.centerHorizontal(centerX)
+                it.centerVertical(centerY)
+            } else if (it.centerHorizontal) {
+                it.centerHorizontal(centerX)
+            } else if (it.centerVertical) {
+                it.centerVertical(centerY)
+            }
 
         }
+
+        setMeasuredDimension(width, height)
     }
 
     fun addShape(shape: MagicShape) {
@@ -120,9 +131,9 @@ class MagicView(context: Context) : View(context) {
                 (y - another.y) * (y - another.y)
         return Math.sqrt(temp.toDouble()).toFloat()
     }
-}
 
-fun Float.max(another: Float): Float {
-    if (another > this) return another
-    return this
+    fun Float.max(another: Float): Float {
+        if (another > this) return another
+        return this
+    }
 }

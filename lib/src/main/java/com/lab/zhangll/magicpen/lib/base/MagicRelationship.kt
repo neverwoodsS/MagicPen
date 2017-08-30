@@ -8,6 +8,10 @@ import com.lab.zhangll.magicpen.lib.shapes.MagicShape
  * Shape 之间相对位置关系的运算及状态保留（即刷新后不会失效）
  */
 abstract class MagicRelationship : IMagicLocation {
+    open var centerInParent = false
+    open var centerHorizontal = false
+    open var centerVertical = false
+
     var leftMargin = 0f
         set(value) {
             field = value

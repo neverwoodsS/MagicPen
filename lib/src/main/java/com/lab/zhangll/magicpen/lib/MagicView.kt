@@ -19,6 +19,10 @@ class MagicView(context: Context) : View(context) {
 
     var downPoint = PointF(0f, 0f)
 
+    // 是否测量过xy的标志位
+    var measureX = false
+    var measureY = false
+
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         shapes.forEach { it.drawOn(canvas) }
@@ -66,11 +70,16 @@ class MagicView(context: Context) : View(context) {
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         var width = 0
         var height = 0
+
+        if (measureX) {
+            width = getWidth()
+        }
         // 处理宽度
-        if (widthMode == MeasureSpec.EXACTLY) {
+        else if (widthMode == MeasureSpec.EXACTLY) {
             // 指定数值宽度或者match_parent
             width = MeasureSpec.getSize(widthMeasureSpec)
             Log.i("MagicView", "width = $width")
+            measureX = true
         } else if (widthMode == MeasureSpec.AT_MOST) {
             // 一般为wrap_content
             var rightX = -1
@@ -82,12 +91,17 @@ class MagicView(context: Context) : View(context) {
                         " end: " + it.end.toString())
             }
             width = rightX
+            measureX = true
         }
 
+        if (measureY) {
+            height = getHeight()
+        }
         // 处理高度
-        if (heightMode == MeasureSpec.EXACTLY) {
+        else if (heightMode == MeasureSpec.EXACTLY) {
             // 指定高度或者match_parent
             height = MeasureSpec.getSize(heightMeasureSpec)
+            measureY = true
         } else if (heightMode == MeasureSpec.AT_MOST) {
             // 一般为wrap_content
             var bottomY = -1
@@ -101,6 +115,7 @@ class MagicView(context: Context) : View(context) {
             }
 
             height = bottomY
+            measureY = true
         }
 
         Log.i("MagicView", "height = $height width = $width")

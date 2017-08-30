@@ -76,7 +76,7 @@ class ShapeSampleActivity : AppCompatActivity() {
                     setBackgroundColor(resources.getColor(android.R.color.holo_red_dark))
                     start = PointF(0f, 0f)
                     end = PointF(100f, 100f)
-
+                    centerInParent = true
                     gesture {
                         onDragBy = { x, y -> moveBy(x, y) }
                     }
@@ -97,6 +97,7 @@ class ShapeSampleActivity : AppCompatActivity() {
                     start = PointF(0f, 0f)
                     end = PointF(0f, 0f)
                     center = PointF(500f, 500f)
+                    centerInParent = true
                     radius = 400f
                     startAngle = -210f
                     sweepAngle = 240f
@@ -117,6 +118,7 @@ class ShapeSampleActivity : AppCompatActivity() {
         if (bmp == null) {
             bmp = magicPen {
                 bitmap {
+                    centerInParent = true
                     start = PointF(0f, 0f)
                     end = PointF(300f, 300f)
                     src = R.mipmap.ic_launcher_round
@@ -133,6 +135,7 @@ class ShapeSampleActivity : AppCompatActivity() {
                 circle {
                     center = PointF(200f, 200f)
                     radius = (100f)
+                    centerInParent = true
                     paint {
                         color = resources.getColor(R.color.abc_color_highlight_material)
                     }

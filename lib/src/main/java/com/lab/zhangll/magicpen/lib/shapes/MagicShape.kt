@@ -34,14 +34,14 @@ abstract class MagicShape : MagicLocation(), MagicDraw, MagicMotion {
 
     /**
      *  MagicView将会调用此方法将Shape放置到View中间
-     *  由shape决定是否复写实现
+     *  此方法可能对某些Shape无效，由子类决定是否复写
      */
     open fun centerHorizontal(centerX: Double) {
         Log.i("MagicLine", "centerX=$centerX " +
                 "start=$start end=$end")
-        val lineCenter = (start!!.x + end!!.x) / 2.0
-        val dis = centerX - lineCenter
-        Log.i("MagicLine", "dis=$dis lineCenter=$lineCenter")
+        val center = (start!!.x + end!!.x) / 2.0
+        val dis = centerX - center
+        Log.i("MagicLine", "dis=$dis center=$center")
         val startX = start!!.x + dis
         val endX = end!!.x + dis
         start = PointF(startX.toFloat(), start!!.y)
@@ -51,14 +51,17 @@ abstract class MagicShape : MagicLocation(), MagicDraw, MagicMotion {
 
     /**
      *  MagicView将会调用此方法将Shape放置到View中间
-     *  由shape决定是否复写实现
+     *  此方法可能对某些Shape无效，由子类决定是否复写
      */
     open fun centerVertical(centerY: Double) {
-        val lineCenter = (start!!.y + end!!.y) / 2.0
-        val dis = centerY - lineCenter
+        Log.i("MagicLine", "centerY=$centerY " +
+                "start=$start end=$end")
+        val center = (start!!.y + end!!.y) / 2.0
+        val dis = centerY - center
         val startY = start!!.y + dis
         val endY = end!!.y + dis
         start = PointF(start!!.x, startY.toFloat())
         end = PointF(end!!.x, endY.toFloat())
+        Log.i("MagicLine", "start=$start end=$end")
     }
 }

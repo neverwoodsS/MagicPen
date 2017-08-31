@@ -175,6 +175,7 @@ class ShapeSampleActivity : AppCompatActivity() {
                 }
             }
         }
+//        line!!.layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
         return line!!
     }
 

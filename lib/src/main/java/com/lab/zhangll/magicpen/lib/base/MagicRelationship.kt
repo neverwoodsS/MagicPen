@@ -12,6 +12,12 @@ abstract class MagicRelationship : IMagicLocation {
     open var centerHorizontal = false
     open var centerVertical = false
 
+    // 这里存疑，可以考虑用十六进制的flag来做
+    open var alignParentStart = false
+    open var alignParentEnd = false
+    open var alignParentTop = false
+    open var alignParentBottom = false
+
     var leftMargin = 0f
         set(value) {
             field = value

@@ -19,13 +19,26 @@ class MagicView(context: Context) : View(context) {
 
     var downPoint = PointF(0f, 0f)
 
-    // 是否测量过xy的标志位
+    // if measureX or Y correctly this flag will be true
     var measureX = false
     var measureY = false
 
+    var mWidth = 0
+    var mHeight = 0
+
+    var shapeGravity = ShapeGravity.NULL
+
+    /**
+     * let shape draw itself
+     */
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         shapes.forEach { it.drawOn(canvas) }
+    }
+
+    fun addShape(shape: MagicShape) {
+        shapes.add(shape)
+        shape.parent = this
     }
 
     /**
@@ -62,65 +75,20 @@ class MagicView(context: Context) : View(context) {
     }
 
     /**
-     * 主要是处理wrap_content的情况
+     * deal with the wrap_content situation
      */
-    // TODO: 无法正确的测量圆的宽高，一系列不设置start end的都无法正确测量
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
-        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
-        var width = 0
-        var height = 0
+        // step 1:measure width and height correctly,onMeasure method
+        // maybe invoke many times by system,once we get correct width
+        // and height,stop measure.
+        measureWidthAndHeight(widthMeasureSpec, heightMeasureSpec)
 
-        if (measureX) {
-            width = getWidth()
-        }
-        // 处理宽度
-        else if (widthMode == MeasureSpec.EXACTLY) {
-            // 指定数值宽度或者match_parent
-            width = MeasureSpec.getSize(widthMeasureSpec)
-            Log.i("MagicView", "width = $width")
-            measureX = true
-        } else if (widthMode == MeasureSpec.AT_MOST) {
-            // 一般为wrap_content
-            var rightX = -1
-            shapes.forEach {
-                if (rightX < it.start!!.y.max(it.end!!.y)) {
-                    rightX = it.start!!.y.max(it.end!!.y).toInt()
-                }
-                Log.i("MagicView", "width start: " + it.start.toString() +
-                        " end: " + it.end.toString())
-            }
-            width = rightX
-            measureX = true
-        }
+        Log.i("MagicView", "height = $mHeight width = $mWidth")
 
-        if (measureY) {
-            height = getHeight()
-        }
-        // 处理高度
-        else if (heightMode == MeasureSpec.EXACTLY) {
-            // 指定高度或者match_parent
-            height = MeasureSpec.getSize(heightMeasureSpec)
-            measureY = true
-        } else if (heightMode == MeasureSpec.AT_MOST) {
-            // 一般为wrap_content
-            var bottomY = -1
-            shapes.forEach {
-                if (bottomY < it.start!!.y.max(it.end!!.y)) {
-                    bottomY = it.start!!.y.max(it.end!!.y).toInt()
-                }
-
-                Log.i("MagicView", "height start: " + it.start.toString() +
-                        " end: " + it.end.toString())
-            }
-
-            height = bottomY
-            measureY = true
-        }
-
-        Log.i("MagicView", "height = $height width = $width")
-        val centerX = width / 2.0
-        val centerY = height / 2.0
+        // step 2:use parameter set by user to change the start and
+        // the end point's x or y
+        val centerX = mWidth / 2.0
+        val centerY = mHeight / 2.0
         shapes.forEach {
             if (it.centerInParent) {
                 it.centerHorizontal(centerX)
@@ -130,15 +98,86 @@ class MagicView(context: Context) : View(context) {
             } else if (it.centerVertical) {
                 it.centerVertical(centerY)
             }
-
         }
-
-        setMeasuredDimension(width, height)
+        // TODO alignParent wait to be finish
+        setMeasuredDimension(mWidth, mHeight)
     }
 
-    fun addShape(shape: MagicShape) {
-        shapes.add(shape)
-        shape.parent = this
+    private fun measureWidthAndHeight(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
+        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+
+        // first measure width
+        if (!measureX) {
+            // 处理宽度
+            if (widthMode == MeasureSpec.EXACTLY) {
+                // 指定数值宽度或者match_parent
+                mWidth = MeasureSpec.getSize(widthMeasureSpec)
+                Log.i("MagicView", "width = $mWidth")
+                measureX = true
+            } else if (widthMode == MeasureSpec.AT_MOST) {
+                // 一般为wrap_content
+                var rightX = -1
+                shapes.forEach {
+                    if (rightX < it.start!!.y.max(it.end!!.y)) {
+                        rightX = it.start!!.y.max(it.end!!.y).toInt()
+                    }
+                    Log.i("MagicView", "width start: " + it.start.toString() +
+                            " end: " + it.end.toString())
+                }
+                mWidth = rightX
+                measureX = true
+            }
+        }
+
+        // second measure height
+        if (!measureY) {
+            // 处理高度
+            if (heightMode == MeasureSpec.EXACTLY) {
+                // 指定高度或者match_parent
+                mHeight = MeasureSpec.getSize(heightMeasureSpec)
+                measureY = true
+            } else if (heightMode == MeasureSpec.AT_MOST) {
+                // 一般为wrap_content
+                var bottomY = -1
+                shapes.forEach {
+                    if (bottomY < it.start!!.y.max(it.end!!.y)) {
+                        bottomY = it.start!!.y.max(it.end!!.y).toInt()
+                    }
+
+                    Log.i("MagicView", "height start: " + it.start.toString() +
+                            " end: " + it.end.toString())
+                }
+
+                mHeight = bottomY
+                measureY = true
+            }
+        }
+    }
+
+    private fun layoutShape(centerX: Int, centerY: Int) {
+        // step 1:use shapeGravity flag to layout all shapes
+        if (shapeGravity.xor(0xffff0000) == 0L) {
+            // START | TOP
+        } else if (shapeGravity.xor(0xff00ff00) == 0L) {
+            // START | BOTTOM
+        } else if (shapeGravity.xor(0x00ff00ff) == 0L) {
+            // END | TOP
+        } else if (shapeGravity.xor(0x0000ffff) == 0L) {
+            // END | BOTTOM
+        } else if (shapeGravity.xor(ShapeGravity.START) == 0L) {
+            // START
+        } else if (shapeGravity.xor(ShapeGravity.END) == 0L) {
+            // END
+        } else if (shapeGravity.xor(ShapeGravity.TOP) == 0L) {
+            // TOP
+        } else if (shapeGravity.xor(ShapeGravity.BOTTOM) == 0L) {
+            // BOTTOM
+        }
+
+        // step 2:if shape itself has a layout flag such as
+        // centerInParent,relayout the shape,this means shapeGravity
+        // will lose efficacy
     }
 
     fun PointF.distanceTo(another: PointF): Float {
@@ -151,4 +190,5 @@ class MagicView(context: Context) : View(context) {
         if (another > this) return another
         return this
     }
+
 }

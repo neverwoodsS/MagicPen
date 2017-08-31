@@ -1,9 +1,13 @@
 package com.lab.zhangll.magicpen
 
-import android.graphics.*
-import android.support.v7.app.AppCompatActivity
+import android.graphics.Color
+import android.graphics.Matrix
+import android.graphics.Paint
+import android.graphics.PointF
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.support.v7.app.AppCompatActivity
+import com.lab.zhangll.magicpen.lib.ShapeGravity
 import com.lab.zhangll.magicpen.lib.arc
 import com.lab.zhangll.magicpen.lib.magicPen
 import com.lab.zhangll.magicpen.lib.paint.paint
@@ -16,11 +20,11 @@ class ArcActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(
                 magicPen {
                     setBackgroundColor(Color.BLACK)
                     arc {
+                        shapeGravity = ShapeGravity.END or ShapeGravity.BOTTOM
                         center = PointF(500f, 500f)
                         radius = 400f
 

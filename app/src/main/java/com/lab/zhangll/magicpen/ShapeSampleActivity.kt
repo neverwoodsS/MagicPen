@@ -20,7 +20,6 @@ import com.lab.zhangll.magicpen.lib.paint.paint
  * e-mail:xiasuhuei321@163.com
  */
 class ShapeSampleActivity : AppCompatActivity() {
-    // FIXME：绘制的bitmap和圆形，设置其父View gravity参数失效
     var lv_list: ListView? = null
     var ll_container: LinearLayout? = null
     var dataList: Array<String>? = null
@@ -38,7 +37,7 @@ class ShapeSampleActivity : AppCompatActivity() {
         lv_list = find<ListView>(R.id.lv_list)
         ll_container = find<LinearLayout>(R.id.ll_container)
 
-        var adapter: EntryListAdapter = EntryListAdapter()
+        val adapter: EntryListAdapter = EntryListAdapter()
         adapter.init(this)
         dataList = resources.getStringArray(R.array.shape)
         lv_list!!.adapter = adapter
@@ -47,24 +46,18 @@ class ShapeSampleActivity : AppCompatActivity() {
         lv_list!!.setOnItemClickListener {
             _, _, pos, _ ->
             when (pos) {
-                0 -> {
-                    addView(createRect())
-                }
-                1 -> {
-                    addView(createArc())
-                }
-                2 -> {
-                    addView(createBmpView())
-                }
-                3 -> {
-                    addView(createCircle())
-                }
-                4 -> {
-                    addView(createText())
-                }
-                5 -> {
-                    addView(createLine())
-                }
+                0 -> addView(createRect())
+
+                1 -> addView(createArc())
+
+                2 -> addView(createBmpView())
+
+                3 -> addView(createCircle())
+
+                4 -> addView(createText())
+
+                5 -> addView(createLine())
+
             }
         }
     }
@@ -94,6 +87,7 @@ class ShapeSampleActivity : AppCompatActivity() {
         if (arc == null) {
             arc = magicPen {
                 arc {
+                    shapeGravity = ShapeGravity.startTop()
                     start = PointF(0f, 0f)
                     end = PointF(0f, 0f)
                     center = PointF(500f, 500f)

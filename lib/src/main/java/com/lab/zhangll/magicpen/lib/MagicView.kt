@@ -26,7 +26,7 @@ class MagicView(context: Context) : View(context) {
     var mWidth = 0
     var mHeight = 0
 
-    var shapeGravity = ShapeGravity.NULL
+    var shapeGravity = ShapeGravity.NULL.flag
 
     /**
      * let shape draw itself
@@ -157,21 +157,21 @@ class MagicView(context: Context) : View(context) {
 
     private fun layoutShape(centerX: Int, centerY: Int) {
         // step 1:use shapeGravity flag to layout all shapes
-        if (shapeGravity.xor(0xffff0000) == 0L) {
+        if (shapeGravity equal 0xffff0000) {
             // START | TOP
-        } else if (shapeGravity.xor(0xff00ff00) == 0L) {
+        } else if (shapeGravity equal 0xff00ff00) {
             // START | BOTTOM
-        } else if (shapeGravity.xor(0x00ff00ff) == 0L) {
+        } else if (shapeGravity equal 0x00ff00ff) {
             // END | TOP
-        } else if (shapeGravity.xor(0x0000ffff) == 0L) {
+        } else if (shapeGravity equal 0x0000ffff) {
             // END | BOTTOM
-        } else if (shapeGravity.xor(ShapeGravity.START) == 0L) {
+        } else if (shapeGravity equal ShapeGravity.START.flag) {
             // START
-        } else if (shapeGravity.xor(ShapeGravity.END) == 0L) {
+        } else if (shapeGravity equal ShapeGravity.END.flag) {
             // END
-        } else if (shapeGravity.xor(ShapeGravity.TOP) == 0L) {
+        } else if (shapeGravity equal ShapeGravity.TOP.flag) {
             // TOP
-        } else if (shapeGravity.xor(ShapeGravity.BOTTOM) == 0L) {
+        } else if (shapeGravity equal ShapeGravity.BOTTOM.flag) {
             // BOTTOM
         }
 
@@ -189,6 +189,10 @@ class MagicView(context: Context) : View(context) {
     fun Float.max(another: Float): Float {
         if (another > this) return another
         return this
+    }
+
+    infix fun Long.equal(other: Long): Boolean {
+        return this xor other == 0L
     }
 
 }

@@ -1,6 +1,7 @@
 package com.lab.zhangll.magicpen.lib.base
 
 import android.graphics.PointF
+import android.util.Log
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape
 
 /**
@@ -195,5 +196,54 @@ abstract class MagicRelationship : IMagicLocation {
 
         func.invoke()
         relations.add(func)
+    }
+
+    /**
+     *  MagicView将会调用此方法将Shape放置到View中间
+     *  此方法可能对某些Shape无效，由子类决定是否复写
+     */
+    open fun centerHorizontal(centerX: Double) {
+        Log.i("MagicLine", "centerX=$centerX " +
+                "start=$start end=$end")
+        val center = (start!!.x + end!!.x) / 2.0
+        val dis = centerX - center
+        Log.i("MagicLine", "dis=$dis center=$center")
+        val startX = start!!.x + dis
+        val endX = end!!.x + dis
+        start = PointF(startX.toFloat(), start!!.y)
+        end = PointF(endX.toFloat(), end!!.y)
+        Log.i("MagicLine", "start=$start end=$end")
+    }
+
+    /**
+     *  MagicView将会调用此方法将Shape放置到View中间
+     *  此方法可能对某些Shape无效，由子类决定是否复写
+     */
+    open fun centerVertical(centerY: Double) {
+        Log.i("MagicLine", "centerY=$centerY " +
+                "start=$start end=$end")
+        val center = (start!!.y + end!!.y) / 2.0
+        val dis = centerY - center
+        val startY = start!!.y + dis
+        val endY = end!!.y + dis
+        start = PointF(start!!.x, startY.toFloat())
+        end = PointF(end!!.x, endY.toFloat())
+        Log.i("MagicLine", "start=$start end=$end")
+    }
+
+    fun alignParentStart() {
+
+    }
+
+    fun alignParentEnd(){
+
+    }
+
+    fun alignParentTop(){
+
+    }
+
+    fun alignParentBottom(){
+
     }
 }

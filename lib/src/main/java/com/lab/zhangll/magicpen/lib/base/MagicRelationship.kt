@@ -202,48 +202,62 @@ abstract class MagicRelationship : IMagicLocation {
      *  MagicView将会调用此方法将Shape放置到View中间
      *  此方法可能对某些Shape无效，由子类决定是否复写
      */
-    open fun centerHorizontal(centerX: Double) {
-        Log.i("MagicLine", "centerX=$centerX " +
+    internal open fun centerHorizontal(centerX: Double) {
+        Log.i("centerHorizontal", "centerX=$centerX " +
                 "start=$start end=$end")
         val center = (start!!.x + end!!.x) / 2.0
-        val dis = centerX - center
-        Log.i("MagicLine", "dis=$dis center=$center")
-        val startX = start!!.x + dis
-        val endX = end!!.x + dis
+        val distance = centerX - center
+        Log.i("centerHorizontal", "distance=$distance center=$center")
+        val startX = start!!.x + distance
+        val endX = end!!.x + distance
         start = PointF(startX.toFloat(), start!!.y)
         end = PointF(endX.toFloat(), end!!.y)
-        Log.i("MagicLine", "start=$start end=$end")
+        Log.i("centerHorizontal", "start=$start end=$end")
     }
 
     /**
      *  MagicView将会调用此方法将Shape放置到View中间
      *  此方法可能对某些Shape无效，由子类决定是否复写
      */
-    open fun centerVertical(centerY: Double) {
-        Log.i("MagicLine", "centerY=$centerY " +
+    internal open fun centerVertical(centerY: Double) {
+        Log.i("centerVertical", "centerY=$centerY " +
                 "start=$start end=$end")
         val center = (start!!.y + end!!.y) / 2.0
-        val dis = centerY - center
-        val startY = start!!.y + dis
-        val endY = end!!.y + dis
+        val distance = centerY - center
+        val startY = start!!.y + distance
+        val endY = end!!.y + distance
         start = PointF(start!!.x, startY.toFloat())
         end = PointF(end!!.x, endY.toFloat())
-        Log.i("MagicLine", "start=$start end=$end")
+        Log.i("centerVertical", "start=$start end=$end")
     }
 
-    fun alignParentStart() {
-
+    internal open fun alignParentStart() {
+        val originX = start!!.x
+        start = PointF(leftMargin, start!!.y)
+        val distance = originX - leftMargin
+        end = PointF(end!!.x - distance, end!!.y)
     }
 
-    fun alignParentEnd(){
-
+    internal open fun alignParentEnd(width: Int) {
+        val originX = end!!.x
+        end = PointF(width.toFloat() - rightMargin, end!!.y)
+        val distance = width.toFloat() - originX - rightMargin
+        start = PointF(start!!.x + distance, start!!.y)
     }
 
-    fun alignParentTop(){
-
+    internal open fun alignParentTop() {
+        Log.i("alignParentTop", "start=$start end=$end")
+        val originY = start!!.y
+        start = PointF(start!!.x, topMargin)
+        val distance = originY - topMargin
+        end = PointF(end!!.x, end!!.y - distance)
+        Log.i("alignParentTop", "start=$start end=$end")
     }
 
-    fun alignParentBottom(){
-
+    internal open fun alignParentBottom(height: Int) {
+        val originY = end!!.y
+        end = PointF(end!!.x, height.toFloat() - bottomMargin)
+        val distance = height.toFloat() - originY - bottomMargin
+        start = PointF(start!!.x, start!!.y + distance)
     }
 }

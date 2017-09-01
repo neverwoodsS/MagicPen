@@ -47,15 +47,10 @@ class ShapeSampleActivity : AppCompatActivity() {
             _, _, pos, _ ->
             when (pos) {
                 0 -> addView(createRect())
-
                 1 -> addView(createArc())
-
                 2 -> addView(createBmpView())
-
                 3 -> addView(createCircle())
-
                 4 -> addView(createText())
-
                 5 -> addView(createLine())
 
             }
@@ -69,7 +64,8 @@ class ShapeSampleActivity : AppCompatActivity() {
                     setBackgroundColor(resources.getColor(android.R.color.holo_red_dark))
                     start = PointF(0f, 0f)
                     end = PointF(100f, 100f)
-                    centerInParent = true
+//                    centerInParent = true
+                    alignParentTop = true
                     gesture {
                         onDragBy = { x, y -> moveBy(x, y) }
                     }
@@ -146,12 +142,16 @@ class ShapeSampleActivity : AppCompatActivity() {
         if (text == null) {
             text = magicPen {
                 text {
+//                    leftMargin = dp(10)
                     content = "hello world"
                     center = PointF(100f, 100f)
                     width = 100f
                     height = 100f
-                    centerInParent = true
-                    paint = Paint().apply { textSize = 40f }
+//                    centerInParent = true
+                    paint = Paint().apply {
+                        textSize = 40f
+                        isAntiAlias = true
+                    }
                 }
             }
         }
@@ -162,12 +162,15 @@ class ShapeSampleActivity : AppCompatActivity() {
         if (line == null) {
             line = magicPen {
                 line {
-                    centerInParent = true
+//                    centerInParent = true
                     start = PointF(100f, 100f)
                     end = PointF(200f, 200f)
                     paint = Paint().apply { strokeWidth = 10f }
+                    alignParentTop = true
+                    centerHorizontal = true
                 }
             }
+
         }
 //        line!!.layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
         return line!!

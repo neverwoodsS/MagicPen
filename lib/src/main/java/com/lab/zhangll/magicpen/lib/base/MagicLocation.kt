@@ -1,6 +1,7 @@
 package com.lab.zhangll.magicpen.lib.base
 
 import android.graphics.PointF
+import android.util.Log
 
 /**
  * Created by zhangll on 2017/5/20.

@@ -87,18 +87,7 @@ class MagicView(context: Context) : View(context) {
 
         // step 2:use parameter set by user to change the start and
         // the end point's x or y
-        val centerX = mWidth / 2.0
-        val centerY = mHeight / 2.0
-        shapes.forEach {
-            if (it.centerInParent) {
-                it.centerHorizontal(centerX)
-                it.centerVertical(centerY)
-            } else if (it.centerHorizontal) {
-                it.centerHorizontal(centerX)
-            } else if (it.centerVertical) {
-                it.centerVertical(centerY)
-            }
-        }
+        layoutShape(mWidth, mHeight)
         // TODO alignParent wait to be finish
         setMeasuredDimension(mWidth, mHeight)
     }
@@ -111,7 +100,7 @@ class MagicView(context: Context) : View(context) {
         if (!measureX) {
             // 处理宽度
             if (widthMode == MeasureSpec.EXACTLY) {
-                // 指定数值宽度或者match_parent
+                // 指定数值宽度或者 match_parent
                 mWidth = MeasureSpec.getSize(widthMeasureSpec)
                 Log.i("MagicView", "width = $mWidth")
                 measureX = true
@@ -134,11 +123,11 @@ class MagicView(context: Context) : View(context) {
         if (!measureY) {
             // 处理高度
             if (heightMode == MeasureSpec.EXACTLY) {
-                // 指定高度或者match_parent
+                // 指定高度或者 match_parent
                 mHeight = MeasureSpec.getSize(heightMeasureSpec)
                 measureY = true
             } else if (heightMode == MeasureSpec.AT_MOST) {
-                // 一般为wrap_content
+                // 一般为 wrap_content
                 var bottomY = -1
                 shapes.forEach {
                     if (bottomY < it.start!!.y.max(it.end!!.y)) {
@@ -155,7 +144,7 @@ class MagicView(context: Context) : View(context) {
         }
     }
 
-    private fun layoutShape(centerX: Int, centerY: Int) {
+    private fun layoutShape(width: Int, height: Int) {
         // step 1:use shapeGravity flag to layout all shapes
         if (shapeGravity equal 0xffff0000) {
             // START | TOP
@@ -178,6 +167,40 @@ class MagicView(context: Context) : View(context) {
         // step 2:if shape itself has a layout flag such as
         // centerInParent,relayout the shape,this means shapeGravity
         // will lose efficacy
+        layoutShapeInParent(width, height)
+    }
+
+    /**
+     * confirm the location of the shape in MagicView
+     * @param width 宽度
+     * @param height 高度
+     *
+     */
+    private fun layoutShapeInParent(width: Int, height: Int) {
+        val centerX = width / 2.0
+        val centerY = height / 2.0
+        shapes.forEach {
+            if (it.centerInParent) {
+                it.centerHorizontal(centerX)
+                it.centerVertical(centerY)
+            } else if (it.centerHorizontal) {
+                it.centerHorizontal(centerX)
+            } else if (it.centerVertical) {
+                it.centerVertical(centerY)
+            }
+
+            if (it.alignParentTop) {
+                it.alignParentTop()
+            } else if (it.alignParentBottom) {
+                it.alignParentBottom(height)
+            }
+
+            if (it.alignParentStart) {
+                it.alignParentStart()
+            } else if (it.alignParentEnd) {
+                it.alignParentEnd(width)
+            }
+        }
     }
 
     fun PointF.distanceTo(another: PointF): Float {

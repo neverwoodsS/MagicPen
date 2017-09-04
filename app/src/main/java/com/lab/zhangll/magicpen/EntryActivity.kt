@@ -20,7 +20,7 @@ class EntryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_entry)
 
-        lv_list = find<ListView>(R.id.lv_list)
+        lv_list = find<ListView>(R.id.listLv)
         adapter = EntryListAdapter()
         adapter!!.init(this)
         lv_list?.adapter = adapter
@@ -28,8 +28,8 @@ class EntryActivity : AppCompatActivity() {
         adapter!!.setData(dataList!!)
 
         lv_list!!.setOnItemClickListener {
-            p, v, pos, id ->
-            when(pos){
+            _, _, pos, _ ->
+            when (pos) {
                 0 -> start<GravityProgressActivity>()
                 1 -> start<SlideBarActivity>()
                 2 -> start<ArcActivity>()

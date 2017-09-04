@@ -34,14 +34,14 @@ class ShapeSampleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_shape)
-        lv_list = find<ListView>(R.id.lv_list)
-        ll_container = find<LinearLayout>(R.id.ll_container)
+        lv_list = find<ListView>(R.id.listLv)
+        ll_container = find<LinearLayout>(R.id.containerLl)
 
-        val adapter: EntryListAdapter = EntryListAdapter()
-        adapter.init(this)
+        val ad = EntryListAdapter()
+        ad.init(this)
         dataList = resources.getStringArray(R.array.shape)
-        lv_list!!.adapter = adapter
-        adapter.setData(dataList!!)
+        lv_list!!.adapter = ad
+        ad.setData(dataList!!)
 
         lv_list!!.setOnItemClickListener {
             _, _, pos, _ ->
@@ -142,12 +142,10 @@ class ShapeSampleActivity : AppCompatActivity() {
         if (text == null) {
             text = magicPen {
                 text {
-//                    leftMargin = dp(10)
                     content = "hello world"
                     center = PointF(100f, 100f)
                     width = 100f
                     height = 100f
-//                    centerInParent = true
                     paint = Paint().apply {
                         textSize = 40f
                         isAntiAlias = true
@@ -162,7 +160,6 @@ class ShapeSampleActivity : AppCompatActivity() {
         if (line == null) {
             line = magicPen {
                 line {
-//                    centerInParent = true
                     start = PointF(100f, 100f)
                     end = PointF(200f, 200f)
                     paint = Paint().apply { strokeWidth = 10f }

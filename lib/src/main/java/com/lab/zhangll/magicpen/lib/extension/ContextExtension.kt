@@ -1,4 +1,4 @@
-package com.lab.zhangll.magicpen.lib
+package com.lab.zhangll.magicpen.lib.extension
 
 import android.content.Context
 import android.util.TypedValue

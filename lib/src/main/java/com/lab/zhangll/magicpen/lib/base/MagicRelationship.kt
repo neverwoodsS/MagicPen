@@ -2,6 +2,7 @@ package com.lab.zhangll.magicpen.lib.base
 
 import android.graphics.PointF
 import android.util.Log
+import com.lab.zhangll.magicpen.lib.extension.LogUtil
 import com.lab.zhangll.magicpen.lib.shapes.MagicShape
 
 /**
@@ -247,11 +248,12 @@ abstract class MagicRelationship : IMagicLocation {
 
     internal open fun alignParentTop() {
         Log.i("alignParentTop", "start=$start end=$end")
+//        LogUtil.default("testststst")
         val originY = start!!.y
         start = PointF(start!!.x, topMargin)
         val distance = originY - topMargin
         end = PointF(end!!.x, end!!.y - distance)
-        Log.i("alignParentTop", "start=$start end=$end")
+        Log.println(Log.INFO,"alignParentTop", "start=$start end=$end")
     }
 
     internal open fun alignParentBottom(height: Int) {
